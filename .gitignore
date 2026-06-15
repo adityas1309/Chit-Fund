@@ -1,0 +1,41 @@
+# Build artefacts
+node_modules/
+dist/
+dist-ssr/
+build/
+*.local
+
+# Vite
+.vite/
+coverage/
+
+# Rust
+contracts/target/
+contracts/Cargo.lock.bak
+
+# Env files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Deploy addresses
+.penalty_address
+.savings_address
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build scratch
+_build/
