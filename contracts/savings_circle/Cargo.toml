@@ -1,0 +1,18 @@
+[package]
+name = "savings_circle"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Tokenised rotating savings circle (Susu / Chit Fund) on Soroban."
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+soroban-sdk = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+penalty_handler = { path = "../penalty_handler" }
