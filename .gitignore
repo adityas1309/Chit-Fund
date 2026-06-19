@@ -4,6 +4,9 @@ dist/
 dist-ssr/
 build/
 *.local
+*.tsbuildinfo
+frontend/vite.config.d.ts
+frontend/vite.config.js
 
 # Vite
 .vite/
