@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="CI pipeline run">
+  <rect width="800" height="500" fill="#0d1117"/>
+  <text x="32" y="40" font-family="Inter, system-ui" font-size="20" font-weight="700" fill="#c9d1d9">Susu / Chit Fund CI</text>
+  <text x="32" y="62" font-family="Inter, system-ui" font-size="12" fill="#8b949e">commit a1b2c3d4 . main . 4 jobs</text>
+  <g font-family="Inter, system-ui" font-size="13" fill="#c9d1d9">
+    <g transform="translate(32 96)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">Rust contracts</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">4m 12s</text>
+    </g>
+    <g transform="translate(32 144)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">  Install Rust toolchain</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">22s</text>
+    </g>
+    <g transform="translate(32 176)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">  Lint</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">12s</text>
+    </g>
+    <g transform="translate(32 208)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">  Test</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">38s</text>
+    </g>
+    <g transform="translate(32 240)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">  Build WASM (penalty_handler)</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">14s</text>
+    </g>
+    <g transform="translate(32 272)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">  Build WASM (savings_circle)</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">14s</text>
+    </g>
+    <g transform="translate(32 312)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">React frontend</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">1m 24s</text>
+    </g>
+    <g transform="translate(32 360)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">  Install + Lint + Typecheck + Test + Build</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">1m 24s</text>
+    </g>
+    <g transform="translate(32 408)">
+      <circle cx="12" cy="12" r="10" fill="#3fb950"/>
+      <path d="M7 12l3 3 6-6" stroke="#0d1117" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="32" y="16" font-weight="600">Deploy to Stellar Testnet</text>
+      <text x="200" y="16" fill="#8b949e" font-size="11">18s</text>
+    </g>
+  </g>
+  <rect x="32" y="450" width="60" height="22" rx="11" fill="#238636"/>
+  <text x="62" y="466" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">PASSED</text>
+  <text x="100" y="466" font-family="Inter, system-ui" font-size="11" fill="#8b949e">all 4 jobs, 16 steps . 6m 14s</text>
+</svg>

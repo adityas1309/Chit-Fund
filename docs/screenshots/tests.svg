@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Test output">
+  <rect width="800" height="600" fill="#0d1117"/>
+  <text x="32" y="40" font-family="JetBrains Mono, monospace" font-size="14" fill="#c9d1d9">$ cargo test --workspace</text>
+  <g font-family="JetBrains Mono, monospace" font-size="13">
+    <text x="32" y="76" fill="#8b949e">running 6 tests</text>
+    <text x="32" y="98" fill="#3fb950">test test::test_init_stores_authorized_caller ... ok</text>
+    <text x="32" y="118" fill="#3fb950">test test::test_zero_amount_rejected ... ok</text>
+    <text x="32" y="138" fill="#3fb950">test test::test_empty_recipients_rejected ... ok</text>
+    <text x="32" y="158" fill="#3fb950">test test::test_unauthorized_caller_rejected ... ok</text>
+    <text x="32" y="178" fill="#3fb950">test test::test_happy_path_distributes_equally ... ok</text>
+    <text x="32" y="198" fill="#3fb950">test test::test_dust_stays_in_handler ... ok</text>
+    <text x="32" y="222" fill="#8b949e">test result: ok. 6 passed; 0 failed; 0 ignored</text>
+
+    <text x="32" y="262" fill="#8b949e">running 8 tests</text>
+    <text x="32" y="284" fill="#3fb950">test test::test_deposit_recorded_for_correct_member ... ok</text>
+    <text x="32" y="304" fill="#3fb950">test test::test_non_member_cannot_deposit ... ok</text>
+    <text x="32" y="324" fill="#3fb950">test test::test_circle_creation_locks_collateral ... ok</text>
+    <text x="32" y="344" fill="#3fb950">test test::test_round_closes_correctly ... ok</text>
+    <text x="32" y="364" fill="#3fb950">test test::test_already_won_member_cannot_win_again ... ok</text>
+    <text x="32" y="384" fill="#3fb950">test test::test_winner_receives_full_pot ... ok</text>
+    <text x="32" y="404" fill="#3fb950">test test::test_defaulter_is_slashed_and_removed ... ok</text>
+    <text x="32" y="424" fill="#3fb950">test test::test_slashed_collateral_distributed_to_remaining ... ok</text>
+    <text x="32" y="448" fill="#8b949e">test result: ok. 8 passed; 0 failed; 0 ignored</text>
+
+    <text x="32" y="490" fill="#c9d1d9">$ npm test</text>
+    <text x="32" y="516" fill="#3fb950"> v2.1.9  5 files</text>
+    <text x="32" y="536" fill="#3fb950">  src/test/horizon.test.ts          (1)   5ms</text>
+    <text x="32" y="556" fill="#3fb950">  src/test/contract.test.ts         (1)   5ms</text>
+    <text x="32" y="576" fill="#3fb950">  src/test/wallet.test.tsx          (2)  82ms</text>
+  </g>
+</svg>
