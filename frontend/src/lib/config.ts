@@ -1,5 +1,5 @@
-// Network configuration. In a production deployment these would be set via
-// the Vercel (or other) deployment environment.
+
+// Network configuration. The app is hard-locked to Stellar testnet.
 
 export type NetworkType = "testnet" | "public";
 
@@ -9,28 +9,23 @@ export interface NetworkConfig {
   horizonUrl: string;
   sorobanRpcUrl: string;
   friendbotUrl?: string;
+  label: string;
+  explorerBase: string;
 }
 
 const TESTNET: NetworkConfig = {
   network: "testnet",
+  label: "Testnet",
   networkPassphrase: "Test SDF Network ; September 2015",
   horizonUrl: "https://horizon-testnet.stellar.org",
   sorobanRpcUrl: "https://soroban-testnet.stellar.org",
   friendbotUrl: "https://friendbot.stellar.org",
+  explorerBase: "https://stellar.expert/explorer/testnet",
 };
 
-const PUBLIC: NetworkConfig = {
-  network: "public",
-  networkPassphrase: "Public Global Stellar Network ; September 2015",
-  horizonUrl: "https://horizon.stellar.org",
-  sorobanRpcUrl: "https://soroban-rpc.stellar.org",
-};
+// Always testnet for this deployment.
+export const NETWORK: NetworkConfig = TESTNET;
 
-export const NETWORK: NetworkConfig =
-  (import.meta.env.VITE_NETWORK as NetworkType) === "public" ? PUBLIC : TESTNET;
-
-// Contract addresses are wired in at deploy time. If unset, the UI shows a
-// helpful warning and most actions are disabled.
 export const SAVINGS_CIRCLE_CONTRACT_ID: string =
   import.meta.env.VITE_SAVINGS_CIRCLE_CONTRACT_ID ?? "";
 

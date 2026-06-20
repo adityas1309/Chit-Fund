@@ -1,4 +1,4 @@
-// High-level Soroban contract client. Wraps the Stellar JS SDK and the
+﻿// High-level Soroban contract client. Wraps the Stellar JS SDK and the
 // generated contract bindings so the rest of the app does not have to deal
 // with low-level XDR manipulation.
 
@@ -18,6 +18,22 @@ import { NETWORK, SAVINGS_CIRCLE_CONTRACT_ID } from "./config";
 import { WalletState } from "./wallet";
 
 const server = new rpc.Server(NETWORK.sorobanRpcUrl, { allowHttp: false });
+
+const APPROVE_TTL_LEDGERS = 518_400; // ~1 month of ledgers at ~5s/ledger
+
+let cachedLiveUntil: { ledger: number; expiresAt: number } | null = null;
+
+async function getLiveUntil(): Promise<number> {
+  // Cache the latest ledger for ~60s to avoid hammering the RPC node.
+  const now = Date.now();
+  if (cachedLiveUntil && now < cachedLiveUntil.expiresAt) {
+    return cachedLiveUntil.ledger + APPROVE_TTL_LEDGERS;
+  }
+  const latest = await server.getLatestLedger();
+  const ledger = latest.sequence;
+  cachedLiveUntil = { ledger, expiresAt: now + 60_000 };
+  return ledger + APPROVE_TTL_LEDGERS;
+}
 
 export type SelectionMode = "RoundRobin" | "Random";
 export type CircleState = "Open" | "Active" | "Complete";
@@ -125,7 +141,7 @@ export async function createCircle(
         nativeToScVal(args.depositAmount, { type: "i128" }),
         nativeToScVal(args.maxMembers, { type: "u32" }),
         nativeToScVal(args.roundIntervalLedgers, { type: "u32" }),
-        nativeToScVal(args.selectionMode)
+        nativeToScVal([args.selectionMode], { type: "symbol" })
       )
     )
     .setTimeout(60)
@@ -217,7 +233,7 @@ export async function approveToken(
         nativeToScVal(new Address(args.owner), { type: "address" }),
         nativeToScVal(new Address(args.spender), { type: "address" }),
         nativeToScVal(args.amount, { type: "i128" }),
-        nativeToScVal(9_999_999, { type: "u32" })
+        nativeToScVal(await getLiveUntil(), { type: "u32" })
       )
     )
     .setTimeout(60)
@@ -226,6 +242,26 @@ export async function approveToken(
   return res.hash;
 }
 
+
+// Recursively convert BigInt values (returned by Soroban scValToNative
+// for u64 / i128 / i256) to plain JS numbers so React/JSON paths do not
+// throw "Cannot mix BigInt and other types".
+function toPlain(value: unknown): unknown {
+  if (typeof value === "bigint") {
+    return Number(value);
+  }
+  if (Array.isArray(value)) {
+    return value.map(toPlain);
+  }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      out[k] = toPlain(v);
+    }
+    return out;
+  }
+  return value;
+}
 async function readOnly<T>(fn: string, ...args: xdr.ScVal[]): Promise<T> {
   const source = Keypair.random().publicKey();
   const account = new Account(source, "0");
@@ -243,7 +279,7 @@ async function readOnly<T>(fn: string, ...args: xdr.ScVal[]): Promise<T> {
   if (!sim.result) {
     throw new Error("Simulation returned no result");
   }
-  return scValToNative(sim.result.retval) as T;
+  return toPlain(scValToNative(sim.result.retval)) as T;
 }
 
 export async function getCircle(circleId: number): Promise<Circle> {
