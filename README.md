@@ -267,19 +267,22 @@ VITE_CIRCLE_TOKEN_CONTRACT_ID=<SAC_TOKEN>
 7. **Show CI pipeline.** Walk through the green check on the GitHub
    Actions run.
 
-## Submission checklist
 
-- [x] **Public GitHub repository** — `example/susu-chit-fund`
-- [x] **README with complete documentation** — this file
-- [x] **Minimum 10+ meaningful commits** — see `git log`
-- [x] **Live demo link** — see `docs/DEPLOYMENT.md` for the Vercel URL
-- [x] **Contract deployment address** — see `docs/DEPLOYMENT.md`
-- [x] **Transaction hash for contract interaction** — see `docs/DEPLOYMENT.md`
-- [x] **Screenshots** — see `docs/screenshots/`
-- [x] **CI/CD pipeline running** — `.github/workflows/ci.yml`
-- [x] **3+ passing tests** — 14 contract tests + 8 frontend tests
-- [x] **Demo video link** — see `docs/DEPLOYMENT.md`
+## Testnet Deployment (live)
 
-## License
+This project is **live on Stellar Testnet**. See [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) for full details.
 
-Apache 2.0. See `LICENSE`.
+| Item | Value |
+|------|-------|
+| Network | Stellar Testnet |
+| savings_circle | CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E |
+| penalty_handler | CA6QMZ2CA3WETF2IKWYBIKRRG4VTQIQVOZGMQ5HMLGRZUE4THANL33C4 |
+| First interaction (create_circle) | tx 77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084 |
+| Stellar Expert | [savings_circle](https://stellar.expert/explorer/testnet/contract/CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E) |
+
+A live test circle (id 0) is open on testnet with 4 seats, 10 XLM/round,
+60-ledger interval, and RoundRobin selection. Any funded Freighter
+wallet can connect, join (locks 10 XLM collateral), deposit per round,
+and trigger round closures.
+
+

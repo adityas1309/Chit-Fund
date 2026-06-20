@@ -78,7 +78,6 @@ impl PenaltyHandler {
     /// One-time initialisation. Stores the address of the only contract that
     /// may invoke `slash` (typically the savings_circle contract).
     pub fn init(env: Env, authorized_caller: Address) {
-        authorized_caller.require_auth();
         env.storage().instance().set(&DataKey::Auth, &authorized_caller);
     }
 
