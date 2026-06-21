@@ -1,0 +1,19 @@
+
+# Vercel ignore list
+.git
+.github
+contracts
+docs
+scripts
+*.md
+.gitignore
+.gitattributes
+LICENSE
+*.ps1
+*.sh
+.savings_address
+.penalty_address
+.sac_token_address
+.vercel
+03-susu-chit-fund-savings-circle.md
+README.md
