@@ -137,31 +137,43 @@ const POLL_INTERVAL_MS = 1500;
 const POLL_TIMEOUT_MS = 90_000;
 
 async function pollForConfirmation(hash: string, opLabel: string): Promise<void> {
+  // @stellar/stellar-sdk v13.x cannot decode the protocol-27
+  // getTransaction response from the current Stellar testnet ("Bad union
+  // switch: 4"), so we poll Horizon instead. Horizon returns the tx
+  // record the moment the ledger closes; that is good enough to know
+  // whether the tx actually landed.
+  const url = NETWORK.horizonUrl + "/transactions/" + hash;
   const deadline = Date.now() + POLL_TIMEOUT_MS;
-  let lastStatus: string = "PENDING";
+  let lastDetail = "PENDING";
   while (Date.now() < deadline) {
-    let resp: any;
+    let res;
     try {
-      resp = await server.getTransaction(hash);
+      res = await fetch(url);
     } catch (e) {
-      // Transient RPC errors are not fatal; keep polling until timeout.
       await sleep(POLL_INTERVAL_MS);
       continue;
     }
-    if (resp.status === rpc.Api.GetTransactionStatus.SUCCESS) {
-      return;
+    if (res.status === 200) {
+      const body = await res.json().catch(() => ({}));
+      if (body.successful === true) return;
+      if (body.successful === false) {
+        throw new Error(
+          opLabel + " failed on-chain: " + JSON.stringify({
+            hash: body.hash,
+            result_xdr: body.result_xdr,
+            ledger: body.ledger,
+          })
+        );
+      }
+    } else if (res.status === 404) {
+      lastDetail = "NOT_FOUND";
+    } else {
+      lastDetail = "HTTP " + res.status;
     }
-    if (resp.status === rpc.Api.GetTransactionStatus.FAILED) {
-      throw new Error(
-        opLabel + " failed on-chain: " + JSON.stringify(resp, (_k, v) => (typeof v === "bigint" ? v.toString() : v))
-      );
-    }
-    lastStatus = resp.status ?? lastStatus;
     await sleep(POLL_INTERVAL_MS);
   }
-  throw new Error(opLabel + " timed out waiting for confirmation (last status: " + lastStatus + ")");
+  throw new Error(opLabel + " timed out waiting for confirmation (last status: " + lastDetail + ")");
 }
-
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }

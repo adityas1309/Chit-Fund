@@ -75,17 +75,22 @@ describe("createCircle selectionMode encoding", () => {
   });
 });
 
-
-// Regression: when a user "creates a circle" the dashboard used to take the
-// hash returned by sendTransaction at face value and immediately navigate to
-// /circles. Soroban's sendTransaction is asynchronous, so the tx could be
-// txBadSeq, txBadAuth, or revert inside the contract while the UI still
-// showed a "Circle created" toast. After the fix, submit() must:
+describe("submit() terminal-status polling", () => {
+// Regression: when a user "creates a circle" the dashboard used to take
+// the hash returned by sendTransaction at face value and immediately
+// navigate to /circles. Soroban sendTransaction is asynchronous, so the
+// tx could be txBadSeq / txBadAuth / contract-revert while the UI still
+// showed a "Circle created" toast. submit() must:
 //   1. Reject when sendTransaction itself returns status === "ERROR".
-//   2. Poll getTransaction until the tx reaches a terminal status, throwing
-//      on FAILED and returning only on SUCCESS.
-describe("submit() polls for confirmation", () => {
-  it("calls getTransaction after sendTransaction and waits for a terminal status", async () => {
+//   2. Poll the transaction until it lands on-chain, throwing on
+//      on-chain failure and returning only on success.
+//
+// Note: this codebase pins @stellar/stellar-sdk v13.x, whose RPC client
+// cannot decode the protocol-27 getTransaction response from the
+// current Stellar testnet ("Bad union switch: 4"). pollForConfirmation
+// therefore polls Horizon, which exposes the same info via the classic
+// /transactions/:hash endpoint and works on every Stellar network.
+  it("polls Horizon /transactions/:hash and waits for a terminal status", async () => {
     const source: string = (await import("../lib/contract.ts?raw")).default;
     const idx = source.indexOf("async function submit");
     expect(idx, "submit() must be defined in contract.ts").toBeGreaterThan(-1);
@@ -94,16 +99,17 @@ describe("submit() polls for confirmation", () => {
     expect(section, "sendTransaction result must be checked for ERROR status").toMatch(
       /\.status\s*===\s*"ERROR"/
     );
-    // The submit body must invoke getTransaction to poll for confirmation.
-    expect(section, "submit() must call server.getTransaction to confirm").toMatch(
-      /getTransaction\s*\(/
+    // submit() must call pollForConfirmation to await on-chain inclusion.
+    expect(section, "submit() must call pollForConfirmation").toMatch(
+      /pollForConfirmation\s*\(\s*hash/
     );
-    // It must treat SUCCESS and FAILED as terminal states.
-    expect(section, "submit() must recognise GetTransactionStatus.SUCCESS").toMatch(
-      /GetTransactionStatus\.SUCCESS/
+    // pollForConfirmation must hit the Horizon /transactions/:hash endpoint.
+    expect(section, "pollForConfirmation must call Horizon /transactions/:hash").toMatch(
+      /NETWORK\.horizonUrl\s*\+\s*"\/transactions\/"\s*\+\s*hash/
     );
-    expect(section, "submit() must throw on GetTransactionStatus.FAILED").toMatch(
-      /GetTransactionStatus\.FAILED/
+    // The Horizon response body.successful=true must be treated as success.
+    expect(section, "submit() must treat body.successful as the terminal signal").toMatch(
+      /body\.successful/
     );
   });
 });
