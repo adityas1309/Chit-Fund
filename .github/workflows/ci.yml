@@ -113,21 +113,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
-          targets: wasm32v1-none
-
-      - name: Install Soroban CLI
-        run: cargo install --locked soroban-cli --version 21.0.0
-
-      - name: Download WASM
-        uses: actions/download-artifact@v8
-        with:
-          name: wasm
-          path: artifacts
-
       - name: Check deploy secret
         id: deploy_config
         run: |
@@ -138,6 +123,24 @@ jobs:
           fi
         env:
           SOROBAN_SECRET_KEY: ${{ secrets.SOROBAN_SECRET_KEY }}
+
+      - name: Install Rust
+        if: steps.deploy_config.outputs.enabled == 'true'
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+          targets: wasm32v1-none
+
+      - name: Install Soroban CLI
+        if: steps.deploy_config.outputs.enabled == 'true'
+        run: cargo install --locked soroban-cli --version 21.0.0
+
+      - name: Download WASM
+        if: steps.deploy_config.outputs.enabled == 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: wasm
+          path: artifacts
 
       - name: Configure Soroban identity
         if: steps.deploy_config.outputs.enabled == 'true'
