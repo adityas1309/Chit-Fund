@@ -5,15 +5,15 @@
 > member wins the pot each round. Miss a payment and your collateral is
 > slashed via a reusable penalty contract.
 
-[![CI](https://github.com/adityas1309/4/actions/workflows/ci.yml/badge.svg)](https://github.com/adityas1309/4/actions/workflows/ci.yml)
-[![Frontend Deploy](https://github.com/adityas1309/4/actions/workflows/vercel-deploy.yml/badge.svg)](https://github.com/adityas1309/4/actions/workflows/vercel-deploy.yml)
+[![CI](https://github.com/adityas1309/Chit-Fund/actions/workflows/ci.yml/badge.svg)](https://github.com/adityas1309/Chit-Fund/actions/workflows/ci.yml)
+[![Frontend Deploy](https://github.com/adityas1309/Chit-Fund/actions/workflows/vercel-deploy.yml/badge.svg)](https://github.com/adityas1309/Chit-Fund/actions/workflows/vercel-deploy.yml)
 [![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen)](./docs/TESTING.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](./LICENSE)
 
 | Item | Value |
 |---|---|
 | Live demo (Vercel) | https://susu-chit-fund.vercel.app |
-| Source repo | https://github.com/adityas1309/4 |
+| Source repo | https://github.com/adityas1309/Chit-Fund |
 | Network | Stellar Testnet (Test SDF Network; September 2015) |
 | Demo video | [YouTube demo](https://youtu.be/N4BUKsrvg0g?si=nPMyfQiUZochTlnV) |
 | Stellar Expert (savings) | [CBUZIODOJ...](https://stellar.expert/explorer/testnet/contract/CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E) |
@@ -24,7 +24,7 @@
 
 ### Level 1
 
-- [x] Public GitHub repository - https://github.com/adityas1309/4
+- [x] Public GitHub repository - https://github.com/adityas1309/Chit-Fund
 - [x] README with complete documentation - this file
 - [x] Project description - see [What is this?](#what-is-this)
 - [x] Setup instructions - see [Quick start](#quick-start)
@@ -39,7 +39,7 @@
 - [x] Contract deployed on testnet - see [Testnet deployment](#testnet-deployment-live)
 - [x] Contract called from the frontend - `join_circle`, `deposit`, `close_round`, `approve_token` in `frontend/src/lib/contract.ts`
 - [x] Transaction status visible - toast with truncated hash + full hash in tx card + Horizon polling
-- [x] Minimum 2+ meaningful commits - 23 commits on `main` (see [git log](https://github.com/adityas1309/4/commits/main))
+- [x] Minimum 2+ meaningful commits - 23 commits on `main` (see [git log](https://github.com/adityas1309/Chit-Fund/commits/main))
 - [x] Multi-wallet app - Freighter, Albedo, Rabet (`frontend/src/lib/wallets.ts`)
 - [x] Deployed contract address - `CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E`
 - [x] Transaction hash of a contract call - [77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084)
