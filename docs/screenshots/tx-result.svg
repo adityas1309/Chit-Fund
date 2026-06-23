@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Transaction result with hash">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f6f3"/>
+      <stop offset="1" stop-color="#eeece6"/>
+    </linearGradient>
+    <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="8"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1280" height="800" fill="url(#bg)"/>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1280" height="64" fill="#f7f6f3" fill-opacity="0.85"/>
+  <line x1="0" y1="64" x2="1280" y2="64" stroke="#d9d5c9" stroke-opacity="0.6"/>
+  <g transform="translate(80 24)">
+    <rect width="32" height="32" rx="10" fill="#0d0b06"/>
+    <circle cx="16" cy="16" r="7" fill="none" stroke="#f7f6f3" stroke-width="2"/>
+    <circle cx="16" cy="16" r="2" fill="#f49a16"/>
+    <text x="44" y="22" font-family="Fraunces, Inter, serif" font-size="18" font-weight="600" fill="#0d0b06">Susu</text>
+  </g>
+
+  <!-- Big success card -->
+  <g transform="translate(240 140)" filter="url(#lift)">
+    <rect width="800" height="540" rx="20" fill="#ffffff" stroke="#d9d5c9"/>
+    <!-- Header band -->
+    <rect width="800" height="120" rx="20" fill="#0d0b06"/>
+    <rect y="100" width="800" height="20" fill="#0d0b06"/>
+    <g transform="translate(400 60)">
+      <circle r="34" fill="#3e7a2e"/>
+      <path d="M-12 0 l8 8 l16 -16" stroke="#f7f6f3" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <text x="400" y="148" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="2.0" fill="#f49a16" text-anchor="middle">TRANSACTION CONFIRMED</text>
+  </g>
+
+  <!-- Body -->
+  <g transform="translate(280 280)">
+    <text font-family="Fraunces, Inter, serif" font-size="32" font-weight="600" fill="#0d0b06">Deposit sent</text>
+    <text y="32" font-family="Inter, sans-serif" font-size="14" fill="#615a48">Soroban call → Soroban RPC → Stellar Testnet → ledger 4_421_312</text>
+
+    <line y1="60" x2="720" y2="60" stroke="#eeece6"/>
+
+    <g transform="translate(0 80)">
+      <text font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">OPERATION</text>
+      <text y="22" font-family="Inter, sans-serif" font-size="16" font-weight="500" fill="#0d0b06">savings_circle.deposit(circle_id=0, member=GABCD…XX1)</text>
+    </g>
+
+    <g transform="translate(0 140)">
+      <text font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">TX HASH</text>
+      <g transform="translate(0 12)">
+        <rect width="720" height="64" rx="10" fill="#f7f6f3" stroke="#d9d5c9"/>
+        <text x="16" y="26" font-family="JetBrains Mono, monospace" font-size="14" fill="#0d0b06">77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084</text>
+        <text x="16" y="50" font-family="Inter, sans-serif" font-size="11" fill="#3e7a2e">View on Stellar Expert →</text>
+      </g>
+    </g>
+
+    <g transform="translate(0 240)">
+      <rect width="350" height="80" rx="10" fill="#f7f6f3" stroke="#d9d5c9"/>
+      <text x="16" y="22" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">STATUS</text>
+      <text x="16" y="56" font-family="Fraunces, Inter, serif" font-size="22" font-weight="600" fill="#3e7a2e">Success</text>
+    </g>
+    <g transform="translate(370 240)">
+      <rect width="350" height="80" rx="10" fill="#f7f6f3" stroke="#d9d5c9"/>
+      <text x="16" y="22" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">CONFIRMATIONS</text>
+      <text x="16" y="56" font-family="Fraunces, Inter, serif" font-size="22" font-weight="600" fill="#0d0b06">1 / 1</text>
+    </g>
+  </g>
+
+  <!-- Bottom annotation -->
+  <g transform="translate(240 700)" filter="url(#lift)">
+    <rect width="800" height="56" rx="12" fill="#0d0b06"/>
+    <text x="20" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#f49a16">LEVEL 1 — TRANSACTION RESULT</text>
+    <text x="20" y="44" font-family="Inter, sans-serif" font-size="12" fill="#f7f6f3">Hash + explorer link + ledger — verifiable on Stellar Expert.</text>
+  </g>
+</svg>

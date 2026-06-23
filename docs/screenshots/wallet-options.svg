@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Wallet options picker">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f6f3"/>
+      <stop offset="1" stop-color="#eeece6"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="0%" r="60%">
+      <stop offset="0" stop-color="#f49a16" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#f49a16" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="6"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Page background -->
+  <rect width="1280" height="800" fill="url(#bg)"/>
+  <rect x="160" y="-80" width="960" height="320" fill="url(#halo)"/>
+
+  <!-- Top bar / nav -->
+  <rect x="0" y="0" width="1280" height="64" fill="#f7f6f3" fill-opacity="0.85"/>
+  <line x1="0" y1="64" x2="1280" y2="64" stroke="#d9d5c9" stroke-opacity="0.6"/>
+  <g transform="translate(80 24)">
+    <rect width="32" height="32" rx="10" fill="#0d0b06"/>
+    <circle cx="16" cy="16" r="7" fill="none" stroke="#f7f6f3" stroke-width="2"/>
+    <circle cx="16" cy="16" r="2" fill="#f49a16"/>
+    <text x="44" y="22" font-family="Fraunces, Inter, serif" font-size="18" font-weight="600" fill="#0d0b06">Susu</text>
+    <text x="92" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="500" letter-spacing="1.6" fill="#615a48">CHIT FUND</text>
+  </g>
+  <g font-family="Inter, sans-serif" font-size="13" font-weight="500" fill="#423c2e">
+    <rect x="700" y="20" width="92" height="32" rx="10" fill="#0d0b06"/>
+    <text x="746" y="40" text-anchor="middle" fill="#f7f6f3">Overview</text>
+    <text x="820" y="40">Circles</text>
+    <text x="900" y="40">Create</text>
+  </g>
+
+  <!-- Testnet pill -->
+  <g transform="translate(1024 22)">
+    <rect width="86" height="28" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+    <circle cx="14" cy="14" r="4" fill="#3e7a2e"/>
+    <circle cx="14" cy="14" r="4" fill="#569944" opacity="0.45">
+      <animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.45;0;0.45" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="26" y="18" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" letter-spacing="0.6" fill="#423c2e">TESTNET</text>
+  </g>
+
+  <!-- Connect wallet button (hovered / focused, dropdown open) -->
+  <g transform="translate(1116 20)">
+    <rect width="124" height="36" rx="10" fill="#0d0b06"/>
+    <circle cx="16" cy="18" r="3" fill="#f49a16"/>
+    <text x="28" y="23" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f7f6f3">Connect wallet</text>
+  </g>
+
+  <!-- Dropdown menu (open) -->
+  <g transform="translate(960 60)" filter="url(#lift)">
+    <rect width="296" height="232" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+    <line x1="0" y1="68" x2="296" y2="68" stroke="#eeece6"/>
+    <text x="20" y="28" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.6" fill="#615a48">PICK A STELLAR WALLET</text>
+    <text x="20" y="50" font-family="Inter, sans-serif" font-size="12" fill="#615a48">All three work on Stellar Testnet.</text>
+
+    <!-- Freighter row -->
+    <g transform="translate(8 80)">
+      <rect width="280" height="40" rx="10" fill="#f7f6f3"/>
+      <text x="16" y="25" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#2a2519">Freighter</text>
+      <text x="248" y="25" font-family="Inter, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#615a48" text-anchor="end">CONNECT</text>
+    </g>
+
+    <!-- Albedo row -->
+    <g transform="translate(8 124)">
+      <rect width="280" height="40" rx="10" fill="#f7f6f3"/>
+      <text x="16" y="25" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#2a2519">Albedo</text>
+      <text x="248" y="25" font-family="Inter, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#615a48" text-anchor="end">CONNECT</text>
+    </g>
+
+    <!-- Rabet row -->
+    <g transform="translate(8 168)">
+      <rect width="280" height="40" rx="10" fill="#f7f6f3"/>
+      <text x="16" y="25" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#2a2519">Rabet</text>
+      <text x="248" y="25" font-family="Inter, sans-serif" font-size="10" font-weight="600" letter-spacing="1.2" fill="#615a48" text-anchor="end">CONNECT</text>
+    </g>
+  </g>
+
+  <!-- Caption pointer line -->
+  <path d="M 1064 90 L 1108 200" stroke="#f49a16" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+  <g transform="translate(1014 220)">
+    <rect width="196" height="56" rx="10" fill="#0d0b06"/>
+    <text x="14" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#f49a16">MULTI-WALLET PICKER</text>
+    <text x="14" y="42" font-family="Inter, sans-serif" font-size="11" fill="#f7f6f3">Freighter, Albedo, Rabet</text>
+  </g>
+
+  <!-- Hero section background fade -->
+  <text x="80" y="220" font-family="Inter, sans-serif" font-size="12" letter-spacing="0.6" fill="#8a4703">STELLAR · SOROBAN — TESTNET DEPLOYMENT</text>
+  <text x="80" y="290" font-family="Fraunces, Inter, serif" font-size="56" font-weight="600" fill="#0d0b06">The savings circle,</text>
+  <text x="80" y="350" font-family="Fraunces, Inter, serif" font-size="56" font-weight="600" fill="#0d0b06"><tspan font-style="italic" fill="#b35e02">finally</tspan> on-chain.</text>
+</svg>

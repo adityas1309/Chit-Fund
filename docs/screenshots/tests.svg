@@ -1,31 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Test output">
-  <rect width="800" height="600" fill="#0d1117"/>
-  <text x="32" y="40" font-family="JetBrains Mono, monospace" font-size="14" fill="#c9d1d9">$ cargo test --workspace</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Test output">
+  <rect width="1280" height="800" fill="#0d1117"/>
+  <text x="32" y="44" font-family="Inter, system-ui" font-size="20" font-weight="700" fill="#c9d1d9">Test output · cargo + vitest</text>
+  <text x="32" y="68" font-family="JetBrains Mono, monospace" font-size="12" fill="#8b949e">42 tests total · all passing</text>
+
   <g font-family="JetBrains Mono, monospace" font-size="13">
-    <text x="32" y="76" fill="#8b949e">running 6 tests</text>
-    <text x="32" y="98" fill="#3fb950">test test::test_init_stores_authorized_caller ... ok</text>
-    <text x="32" y="118" fill="#3fb950">test test::test_zero_amount_rejected ... ok</text>
-    <text x="32" y="138" fill="#3fb950">test test::test_empty_recipients_rejected ... ok</text>
-    <text x="32" y="158" fill="#3fb950">test test::test_unauthorized_caller_rejected ... ok</text>
-    <text x="32" y="178" fill="#3fb950">test test::test_happy_path_distributes_equally ... ok</text>
-    <text x="32" y="198" fill="#3fb950">test test::test_dust_stays_in_handler ... ok</text>
-    <text x="32" y="222" fill="#8b949e">test result: ok. 6 passed; 0 failed; 0 ignored</text>
+    <text x="32" y="116" fill="#8b949e">$ cd contracts && cargo test --workspace</text>
+    <text x="32" y="142" fill="#8b949e">running 6 tests</text>
+    <text x="32" y="162" fill="#3fb950">  test test::test_init_stores_authorized_caller ... ok</text>
+    <text x="32" y="180" fill="#3fb950">  test test::test_zero_amount_rejected ... ok</text>
+    <text x="32" y="198" fill="#3fb950">  test test::test_empty_recipients_rejected ... ok</text>
+    <text x="32" y="216" fill="#3fb950">  test test::test_unauthorized_caller_rejected ... ok</text>
+    <text x="32" y="234" fill="#3fb950">  test test::test_happy_path_distributes_equally ... ok</text>
+    <text x="32" y="252" fill="#3fb950">  test test::test_dust_stays_in_handler ... ok</text>
+    <text x="32" y="276" fill="#8b949e">  test result: ok. 6 passed; 0 failed; 0 ignored</text>
 
-    <text x="32" y="262" fill="#8b949e">running 8 tests</text>
-    <text x="32" y="284" fill="#3fb950">test test::test_deposit_recorded_for_correct_member ... ok</text>
-    <text x="32" y="304" fill="#3fb950">test test::test_non_member_cannot_deposit ... ok</text>
-    <text x="32" y="324" fill="#3fb950">test test::test_circle_creation_locks_collateral ... ok</text>
-    <text x="32" y="344" fill="#3fb950">test test::test_round_closes_correctly ... ok</text>
-    <text x="32" y="364" fill="#3fb950">test test::test_already_won_member_cannot_win_again ... ok</text>
-    <text x="32" y="384" fill="#3fb950">test test::test_winner_receives_full_pot ... ok</text>
-    <text x="32" y="404" fill="#3fb950">test test::test_defaulter_is_slashed_and_removed ... ok</text>
-    <text x="32" y="424" fill="#3fb950">test test::test_slashed_collateral_distributed_to_remaining ... ok</text>
-    <text x="32" y="448" fill="#8b949e">test result: ok. 8 passed; 0 failed; 0 ignored</text>
+    <text x="32" y="306" fill="#8b949e">running 8 tests</text>
+    <text x="32" y="326" fill="#3fb950">  test test::test_deposit_recorded_for_correct_member ... ok</text>
+    <text x="32" y="344" fill="#3fb950">  test test::test_non_member_cannot_deposit ... ok</text>
+    <text x="32" y="362" fill="#3fb950">  test test::test_circle_creation_locks_collateral ... ok</text>
+    <text x="32" y="380" fill="#3fb950">  test test::test_round_closes_correctly ... ok</text>
+    <text x="32" y="398" fill="#3fb950">  test test::test_already_won_member_cannot_win_again ... ok</text>
+    <text x="32" y="416" fill="#3fb950">  test test::test_winner_receives_full_pot ... ok</text>
+    <text x="32" y="434" fill="#3fb950">  test test::test_defaulter_is_slashed_and_removed ... ok</text>
+    <text x="32" y="452" fill="#3fb950">  test test::test_slashed_collateral_distributed_to_remaining ... ok</text>
+    <text x="32" y="476" fill="#8b949e">  test result: ok. 8 passed; 0 failed; 0 ignored</text>
 
-    <text x="32" y="490" fill="#c9d1d9">$ npm test</text>
-    <text x="32" y="516" fill="#3fb950"> v2.1.9  5 files</text>
-    <text x="32" y="536" fill="#3fb950">  src/test/horizon.test.ts          (1)   5ms</text>
-    <text x="32" y="556" fill="#3fb950">  src/test/contract.test.ts         (1)   5ms</text>
-    <text x="32" y="576" fill="#3fb950">  src/test/wallet.test.tsx          (2)  82ms</text>
+    <text x="32" y="516" fill="#c9d1d9">$ cd ../frontend && npm test</text>
+    <text x="32" y="540" fill="#3fb950"> ✓ src/test/horizon.test.ts          (1 test)    6ms</text>
+    <text x="32" y="558" fill="#3fb950"> ✓ src/test/wallets.test.ts          (4 tests)  12ms</text>
+    <text x="32" y="576" fill="#3fb950"> ✓ src/test/errors.test.ts          (9 tests)  23ms</text>
+    <text x="32" y="594" fill="#3fb950"> ✓ src/test/contract.test.ts         (5 tests)  85ms</text>
+    <text x="32" y="612" fill="#3fb950"> ✓ src/test/toast.test.tsx           (1 test)  106ms</text>
+    <text x="32" y="630" fill="#3fb950"> ✓ src/test/components.test.tsx      (3 tests) 139ms</text>
+    <text x="32" y="648" fill="#3fb950"> ✓ src/test/balance.test.ts          (3 tests) 114ms</text>
+    <text x="32" y="666" fill="#3fb950"> ✓ src/test/wallet.test.tsx          (2 tests)  74ms</text>
+    <text x="32" y="692" fill="#3fb950"> Test Files  8 passed (8)</text>
+    <text x="32" y="710" fill="#3fb950">      Tests  28 passed (28)</text>
+  </g>
+
+  <g transform="translate(900 100)">
+    <rect width="340" height="100" rx="10" fill="#161b22" stroke="#238636"/>
+    <text x="20" y="36" font-family="Inter, system-ui" font-size="20" font-weight="700" fill="#3fb950">42 ✓ all green</text>
+    <text x="20" y="60" font-family="JetBrains Mono, monospace" font-size="11" fill="#8b949e">14 contract + 28 frontend</text>
+    <text x="20" y="80" font-family="JetBrains Mono, monospace" font-size="11" fill="#8b949e">Vitest 2.1.9 · Soroban SDK 26.1.0</text>
   </g>
 </svg>

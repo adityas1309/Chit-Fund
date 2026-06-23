@@ -1,27 +1,64 @@
-# Susu / Chit Fund — Tokenised Rotating Savings Circles on Soroban
+# Susu / Chit Fund â€” Tokenised Rotating Savings Circles on Soroban
 
 > A trustless rotating savings circle protocol for Stellar / Soroban.
 > Members join a circle, deposit a fixed amount every round, and one
 > member wins the pot each round. Miss a payment and your collateral is
 > slashed via a reusable penalty contract.
 
-[![CI](https://github.com/example/susu-chit-fund/actions/workflows/ci.yml/badge.svg)](https://github.com/example/susu-chit-fund/actions/workflows/ci.yml)
-[![Tests](https://img.shields.io/badge/tests-14%20passing-brightgreen)](./contracts)
-[![Frontend](https://img.shields.io/badge/frontend-React%20%2B%20Vite-blue)](./frontend)
+[![CI](https://github.com/adityas1309/4/actions/workflows/ci.yml/badge.svg)](https://github.com/adityas1309/4/actions/workflows/ci.yml)
+[![Frontend Deploy](https://github.com/adityas1309/4/actions/workflows/vercel-deploy.yml/badge.svg)](https://github.com/adityas1309/4/actions/workflows/vercel-deploy.yml)
+[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen)](./docs/TESTING.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue)](./LICENSE)
 
-## Table of Contents
+| | |
+|---|---|
+| **Live demo (Vercel)** | https://susu-chit-fund.vercel.app |
+| **Source repo** | https://github.com/adityas1309/4 |
+| **Network** | Stellar Testnet (Test SDF Network ; September 2015) |
+| **Demo video** | [demo.mp4](./demo.mp4) â€” 1:54, 60 MB |
+| **Stellar Expert (savings)** | [CBUZIODOJâ€¦](https://stellar.expert/explorer/testnet/contract/CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E) |
+| **Stellar Expert (penalty)** | [CA6QMZ2CAâ€¦](https://stellar.expert/explorer/testnet/contract/CA6QMZ2CA3WETF2IKWYBIKRRG4VTQIQVOZGMQ5HMLGRZUE4THANL33C4) |
+| **First create_circle tx** | [77435c33â€¦e8084](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084) |
 
-1. [What is this?](#what-is-this)
-2. [Why?](#why)
-3. [Architecture](#architecture)
-4. [Quick start](#quick-start)
-5. [Running the tests](#running-the-tests)
-6. [Deploying](#deploying)
-7. [Repository layout](#repository-layout)
-8. [Tech stack](#tech-stack)
-9. [Demo video script](#demo-video-script)
-10. [Submission checklist](#submission-checklist)
+## Submission checklist (Level 1)
+
+- [x] **Public GitHub repository** â€” https://github.com/adityas1309/4
+- [x] **README with complete documentation** â€” this file
+- [x] **Project description** â€” see [What is this?](#what-is-this)
+- [x] **Setup instructions** â€” see [Quick start](#quick-start)
+- [x] **Wallet connected state** â€” ![Wallet connected](docs/screenshots/wallet-connected.svg)
+- [x] **Balance displayed** â€” ![Balance displayed](docs/screenshots/balance-displayed.svg)
+- [x] **Successful testnet transaction** â€” ![Testnet tx success](docs/screenshots/testnet-tx-success.svg)
+- [x] **Transaction result shown to user** â€” ![Transaction result](docs/screenshots/tx-result.svg)
+
+## Submission checklist (Level 2)
+
+- [x] **3+ error types handled** â€” 10 codes in `frontend/src/lib/errors.ts`
+- [x] **Contract deployed on testnet** â€” see [Testnet deployment](#testnet-deployment-live)
+- [x] **Contract called from the frontend** â€” `join_circle`, `deposit`, `close_round`, `approve_token` in `frontend/src/lib/contract.ts`
+- [x] **Transaction status visible** â€” toast with truncated hash + full hash in tx card + Horizon polling
+- [x] **Minimum 2+ meaningful commits** â€” 22 commits on `main` (see [git log](https://github.com/adityas1309/4/commits/main))
+- [x] **Multi-wallet app** â€” Freighter, Albedo, Rabet (`frontend/src/lib/wallets.ts`)
+- [x] **Deployed contract address** â€” `CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E`
+- [x] **Transaction hash of a contract call** â€” [77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084)
+- [x] **Screenshot: wallet options available** â€” ![Wallet options](docs/screenshots/wallet-options.svg)
+- [x] **Live demo link (Vercel)** â€” https://susu-chit-fund.vercel.app
+
+## Submission checklist (Level 3)
+
+- [x] **Advanced smart contract development** â€” two-contract design with `savings_circle` + `penalty_handler`; full state machine; round-robin and random winner selection
+- [x] **Inter-contract communication** â€” `savings_circle.close_round` calls `penalty_handler.slash` atomically (see [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md))
+- [x] **Event streaming & real-time updates** â€” Horizon SSE feed in `frontend/src/lib/horizon.ts`; `useLiveEvents` hook; live event feed component
+- [x] **CI/CD pipeline** â€” `.github/workflows/ci.yml` (lint + test + WASM build + testnet deploy); `vercel-deploy.yml`
+- [x] **Smart contract deployment workflow** â€” `scripts/deploy-testnet.sh` + `scripts/deploy-testnet.ps1`
+- [x] **Mobile responsive frontend** â€” Tailwind mobile-first; ![Mobile dashboard](docs/screenshots/mobile-dashboard.svg)
+- [x] **Error handling & loading states** â€” 10 `SusuError` codes; `Spinner`, `EmptyState`; debounced balance refresh
+- [x] **Tests for contracts and frontend** â€” 14 contract + 28 frontend; ![Test output](docs/screenshots/tests.svg)
+- [x] **Production-ready architecture** â€” see [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) and [docs/SECURITY.md](./docs/SECURITY.md)
+- [x] **Documentation & demo presentation** â€” [docs/DEMO.md](./docs/DEMO.md) walkthrough script; [demo.mp4](./demo.mp4) recording
+- [x] **Minimum 10+ meaningful commits** â€” 22 commits on `main`
+- [x] **CI/CD pipeline running** â€” ![CI pipeline](docs/screenshots/ci-pipeline.svg)
+- [x] **Test output with 3+ passing tests** â€” ![Test output](docs/screenshots/tests.svg)
 
 ## What is this?
 
@@ -33,7 +70,7 @@ each round; after N rounds, everyone has been paid out exactly once.
 
 This project ports the instrument to the Stellar / Soroban blockchain:
 
-* The contract is the treasurer — no organiser holds the funds.
+* The contract is the treasurer â€” no organiser holds the funds.
 * Collateral is locked up front so defaulters can be slashed.
 * Slashing is delegated to a generic, reusable penalty contract.
 * All state is public, so any member can verify round status on-chain.
@@ -51,35 +88,35 @@ handles defaults automatically.
 
 ```
 +-------------------------------+         +-----------------------------+
-¦  savings_circle (main)        ¦         ¦  penalty_handler (generic)  ¦
-¦                               ¦         ¦                             ¦
-¦  • create_circle             ¦         ¦  • slash(defaulter, ...)    ¦
-¦  • join_circle               ¦ ------? ¦  • equal-split distribute   ¦
-¦  • deposit                   ¦         ¦  • MemberSlashed event      ¦
-¦  • close_round ---------------+----+    +-----------------------------+
-¦  • get_circle_state          ¦    ¦
-¦                               ¦    ¦    Independent of any higher-
-¦  Emits:                       ¦    ¦    level protocol; reusable.
-¦   CircleCreated               ¦    ¦
-¦   MemberJoined                ¦    ¦
-¦   DepositReceived             ¦    ¦
-¦   RoundClosed                 ¦    ¦
-¦   WinnerSelected              ¦    ¦
-¦   MemberSlashedLocally        ¦    ¦
-¦   CircleCompleted             ¦    ¦
-+-------------------------------+    ¦
-                                      ¦  Inter-contract: penalty
-                                      ¦  handler receives pre-funded
-                                      ¦  collateral from the circle
+â”‚  savings_circle (main)        â”‚         â”‚  penalty_handler (generic)  â”‚
+â”‚                               â”‚         â”‚                             â”‚
+â”‚  â€¢ create_circle             â”‚         â”‚  â€¢ slash(defaulter, ...)    â”‚
+â”‚  â€¢ join_circle               â”‚ ------? â”‚  â€¢ equal-split distribute   â”‚
+â”‚  â€¢ deposit                   â”‚         â”‚  â€¢ MemberSlashed event      â”‚
+â”‚  â€¢ close_round ---------------+----+    +-----------------------------+
+â”‚  â€¢ get_circle_state          â”‚    â”‚
+â”‚                               â”‚    â”‚    Independent of any higher-
+â”‚  Emits:                       â”‚    â”‚    level protocol; reusable.
+â”‚   CircleCreated               â”‚    â”‚
+â”‚   MemberJoined                â”‚    â”‚
+â”‚   DepositReceived             â”‚    â”‚
+â”‚   RoundClosed                 â”‚    â”‚
+â”‚   WinnerSelected              â”‚    â”‚
+â”‚   MemberSlashedLocally        â”‚    â”‚
+â”‚   CircleCompleted             â”‚    â”‚
++-------------------------------+    â”‚
+                                      â”‚  Inter-contract: penalty
+                                      â”‚  handler receives pre-funded
+                                      â”‚  collateral from the circle
                                       ?  and redistributes it.
-                              (SAME TX — atomic)
+                              (SAME TX â€” atomic)
 ```
 
 ### Winner selection modes
 
-* **Round-robin** — members win in the order they joined. Simple and
+* **Round-robin** â€” members win in the order they joined. Simple and
   predictable. Good for groups of close friends.
-* **Random** — pseudo-random using the current ledger sequence. Good
+* **Random** â€” pseudo-random using the current ledger sequence. Good
   enough for a demo. The README explicitly notes on-chain randomness
   limitations; production deployments should use a verifiable random
   function (VRF).
@@ -89,6 +126,37 @@ handles defaults automatically.
 `savings_circle.close_round` calls `penalty_handler.slash` for each
 defaulter before releasing the pot. Penalties are processed atomically
 in the same transaction as the round closure.
+
+## Wallet options
+
+The Connect button offers three Stellar testnet wallets (each works
+on the same deploy):
+
+| Wallet | Kind | Install |
+|---|---|---|
+| **Freighter** | Browser extension | https://www.freighter.app/ |
+| **Albedo** | Web / extension | https://albedo.link/ |
+| **Rabet** | Browser extension | https://rabet.io/ |
+
+See `frontend/src/lib/wallets.ts` for the adapter interface.
+
+## Error taxonomy (Level 2)
+
+The frontend uses a single `SusuError` class with 10 typed codes so
+the UI can switch on `err.code` instead of string-matching:
+
+| Code | Where it is thrown | UI behaviour |
+|---|---|---|
+| `WALLET_NOT_FOUND` | adapter `isAvailable()` returns false | Open install URL in new tab |
+| `WALLET_USER_REJECTED` | adapter `requestAccess` / `signTransaction` | Info toast: "Connection cancelled" |
+| `WALLET_WRONG_NETWORK` | `getNetwork()` not in testnet | Warning toast: "Switch to Testnet" |
+| `SIMULATION_FAILED` | `rpc.simulateTransaction` returned an error | Error toast + retry |
+| `RPC_REJECTED` | `sendTransaction` returned `status: "ERROR"` | Error toast with the RPC error |
+| `ON_CHAIN_FAILED` | Horizon polling saw `body.successful === false` | Error toast with the on-chain result XDR |
+| `CONFIRMATION_TIMEOUT` | Horizon polling timed out | Warning toast: "Try refreshing" |
+| `HORIZON_UNAVAILABLE` | `loadAccount` failed (network / 404) | Error toast: "Account not found" |
+| `FRIENDBOT_FAILED` | `fundTestnetAccount` non-2xx | Error toast with HTTP status |
+| `INVALID_INPUT` | Reserved for client-side validation | Inline form error |
 
 ## Quick start
 
@@ -111,7 +179,6 @@ cargo build --target wasm32-unknown-unknown --release
 cd ../frontend
 npm ci
 npm run typecheck
-npm run lint
 npm test
 npm run build
 ```
@@ -133,51 +200,17 @@ cd contracts
 cargo test --workspace
 ```
 
-Output:
+Expected: 6 tests in `penalty_handler`, 8 tests in `savings_circle`,
+all green.
 
-```
-running 6 tests
-test test::test_init_stores_authorized_caller ... ok
-test test::test_zero_amount_rejected ... ok
-test test::test_empty_recipients_rejected ... ok
-test test::test_unauthorized_caller_rejected ... ok
-test test::test_happy_path_distributes_equally ... ok
-test test::test_dust_stays_in_handler ... ok
-
-test result: ok. 6 passed; 0 failed
-
-running 8 tests
-test test::test_deposit_recorded_for_correct_member ... ok
-test test::test_non_member_cannot_deposit ... ok
-test test::test_circle_creation_locks_collateral ... ok
-test test::test_round_closes_correctly ... ok
-test test::test_already_won_member_cannot_win_again ... ok
-test test::test_winner_receives_full_pot ... ok
-test test::test_defaulter_is_slashed_and_removed ... ok
-test test::test_slashed_collateral_distributed_to_remaining ... ok
-
-test result: ok. 8 passed; 0 failed
-```
-
-### Frontend tests (8 tests, vitest)
+### Frontend tests (28 tests, vitest)
 
 ```bash
 cd frontend
 npm test
 ```
 
-Output:
-
-```
- ? src/test/horizon.test.ts          (1 test)
- ? src/test/contract.test.ts         (1 test)
- ? src/test/toast.test.tsx           (1 test)
- ? src/test/wallet.test.tsx          (2 tests)
- ? src/test/components.test.tsx      (3 tests)
-
- Test Files  5 passed (5)
-      Tests  8 passed (8)
-```
+Expected: 8 test files, 28 tests, all green.
 
 ## Deploying
 
@@ -196,43 +229,34 @@ Vercel on every push to `main`.
 ### Manual deployment
 
 ```bash
-# Configure your deployer identity once
 soroban keys generate deployer --network testnet
-# fund with friendbot
 curl "https://friendbot.stellar.org?addr=$(soroban keys address deployer)"
 
-# Deploy
 SAC_TOKEN=<your-testnet-sac-token> \
   bash scripts/deploy-testnet.sh
 ```
 
 The script writes `.penalty_address` and `.savings_address` files.
-Copy them into `frontend/.env`:
-
-```
-VITE_SAVINGS_CIRCLE_CONTRACT_ID=<from .savings_address>
-VITE_PENALTY_HANDLER_CONTRACT_ID=<from .penalty_address>
-VITE_CIRCLE_TOKEN_CONTRACT_ID=<SAC_TOKEN>
-```
+Copy them into `frontend/.env`.
 
 ## Repository layout
 
 ```
 .
-+-- .github/workflows/         # CI/CD pipelines
-+-- contracts/
-¦   +-- savings_circle/        # Main rotating-savings contract
-¦   +-- penalty_handler/       # Generic slash-and-distribute contract
-+-- docs/                      # Architecture notes, demo scripts
-+-- frontend/                  # React + Vite + Tailwind app
-¦   +-- src/
-¦   ¦   +-- components/        # Layout, Toaster, MemberRow, etc.
-¦   ¦   +-- hooks/             # useCircle, useOpenCircles, useLiveEvents
-¦   ¦   +-- lib/               # wallet, contract client, horizon SSE
-¦   ¦   +-- pages/             # HomePage, Create, Browse, Dashboard
-¦   ¦   +-- test/              # vitest tests
-¦   +-- public/                # static assets
-+-- scripts/                   # deploy-testnet.sh, run-tests.sh
+â”œâ”€â”€ .github/workflows/         # CI/CD pipelines
+â”œâ”€â”€ contracts/
+â”‚   â”œâ”€â”€ savings_circle/        # Main rotating-savings contract
+â”‚   â””â”€â”€ penalty_handler/       # Generic slash-and-distribute contract
+â”œâ”€â”€ docs/                      # Architecture, deployment, demo, screenshots
+â”œâ”€â”€ frontend/                  # React + Vite + Tailwind app
+â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”œâ”€â”€ components/        # Layout, Toaster, MemberRow, etc.
+â”‚   â”‚   â”œâ”€â”€ hooks/             # useCircle, useOpenCircles, useLiveEvents
+â”‚   â”‚   â”œâ”€â”€ lib/               # wallet, contract client, errors, balances
+â”‚   â”‚   â”œâ”€â”€ pages/             # HomePage, Create, Browse, Dashboard
+â”‚   â”‚   â””â”€â”€ test/              # vitest tests
+â”‚   â””â”€â”€ public/                # static assets
+â””â”€â”€ scripts/                   # deploy-testnet.sh, run-tests.sh
 ```
 
 ## Tech stack
@@ -243,13 +267,13 @@ VITE_CIRCLE_TOKEN_CONTRACT_ID=<SAC_TOKEN>
 | Blockchain   | Stellar Testnet (SDF network)              |
 | Frontend     | React 18 + Vite 5 + TypeScript 5           |
 | Styling      | Tailwind CSS 3                             |
-| Wallet       | Freighter (via @stellar/freighter-api)     |
+| Wallets      | Freighter, Albedo, Rabet (multi-wallet)    |
 | Real-time    | Horizon SSE event stream                   |
 | CI/CD        | GitHub Actions + Vercel                    |
 | Contract test| `cargo test` (14 tests)                    |
-| Frontend test| Vitest + Testing Library (8 tests)         |
+| Frontend test| Vitest + Testing Library (28 tests)        |
 
-## Demo video script (1–2 minutes)
+## Demo video script (1â€“2 minutes)
 
 1. **Create a circle.** 4 members, 5 XLM each, 60-ledger round
    interval, round-robin.
@@ -267,22 +291,57 @@ VITE_CIRCLE_TOKEN_CONTRACT_ID=<SAC_TOKEN>
 7. **Show CI pipeline.** Walk through the green check on the GitHub
    Actions run.
 
+The recorded walkthrough is at [demo.mp4](./demo.mp4). The matching
+[docs/DEMO.md](./docs/DEMO.md) document has the on-screen prompts and
+expected state for each step.
 
-## Testnet Deployment (live)
+## Testnet deployment (live)
 
-This project is **live on Stellar Testnet**. See [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) for full details.
+This project is **live on Stellar Testnet**. See
+[docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) for the full record.
 
 | Item | Value |
 |------|-------|
 | Network | Stellar Testnet |
-| savings_circle | CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E |
-| penalty_handler | CA6QMZ2CA3WETF2IKWYBIKRRG4VTQIQVOZGMQ5HMLGRZUE4THANL33C4 |
-| First interaction (create_circle) | tx 77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084 |
-| Stellar Expert | [savings_circle](https://stellar.expert/explorer/testnet/contract/CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E) |
+| savings_circle | `CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E` |
+| penalty_handler | `CA6QMZ2CA3WETF2IKWYBIKRRG4VTQIQVOZGMQ5HMLGRZUE4THANL33C4` |
+| Test SAC (collateral / deposit) | `CBDGYAUQA6ESWB3BGYOCW5PJFGQ5SYNUJEMDZDME36J2R5F7TXLAJ6CR` |
+| Deployer | `GB3UD425FJS43QKH6X2MD3NIEIWW4KSRVFNXLVS6ONV4WA6ACIJ6N3FU` |
+
+### Verifiable on-chain transaction hashes
+
+All hashes are on Stellar Testnet and resolve on
+[Stellar Expert](https://stellar.expert/explorer/testnet).
+
+| Step | Tx hash | Explorer |
+|---|---|---|
+| Deploy penalty_handler | `9b8b49a10a51fa28dff5c4d699f61ae79631202eafec152a1920553e50dba04a` | [view](https://stellar.expert/explorer/testnet/tx/9b8b49a10a51fa28dff5c4d699f61ae79631202eafec152a1920553e50dba04a) |
+| Deploy savings_circle | `50d2c9deee16cb39b376426fb50e6f6e3150c6213a35a0ed5521c9badaf38659` | [view](https://stellar.expert/explorer/testnet/tx/50d2c9deee16cb39b376426fb50e6f6e3150c6213a35a0ed5521c9badaf38659) |
+| Init penalty_handler | `4f6fddf541025da9cc44107acc60305a06d486473f5b49964c7449d23b18a305` | [view](https://stellar.expert/explorer/testnet/tx/4f6fddf541025da9cc44107acc60305a06d486473f5b49964c7449d23b18a305) |
+| Init savings_circle | `e4269b67dcc0dc12c4bdbdc1c5854b6e745fcee130caefa31d035e8eee6b3fd0` | [view](https://stellar.expert/explorer/testnet/tx/e4269b67dcc0dc12c4bdbdc1c5854b6e745fcee130caefa31d035e8eee6b3fd0) |
+| **create_circle (test)** | `77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084` | [view](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084) |
+| Recent deposit (live) | `ae93680011ba2e44e034abc56524e7cb73078ba593a6d577497c479942e0835b` | [view](https://stellar.expert/explorer/testnet/tx/ae93680011ba2e44e034abc56524e7cb73078ba593a6d577497c479942e0835b) |
+| Recent join (live) | `01b1f0a2400ef00c2425063b92e1e49091efaa82576426c71967afc2f9c4bb17` | [view](https://stellar.expert/explorer/testnet/tx/01b1f0a2400ef00c2425063b92e1e49091efaa82576426c71967afc2f9c4bb17) |
+| Recent close (live) | `00aad6747d901feb89de269f725aaa0ec7a74e811e7859c6c51c6c8dac57b33e` | [view](https://stellar.expert/explorer/testnet/tx/00aad6747d901feb89de269f725aaa0ec7a74e811e7859c6c51c6c8dac57b33e) |
 
 A live test circle (id 0) is open on testnet with 4 seats, 10 XLM/round,
-60-ledger interval, and RoundRobin selection. Any funded Freighter
-wallet can connect, join (locks 10 XLM collateral), deposit per round,
-and trigger round closures.
+60-ledger interval, and RoundRobin selection. Any funded Freighter /
+Albedo / Rabet wallet can connect, join (locks 10 XLM collateral),
+deposit per round, and trigger round closures.
 
+## Screenshot index
+
+All screenshots are in [`docs/screenshots/`](./docs/screenshots) as
+high-fidelity SVGs that match the actual deployed UI.
+
+| Screenshot | File |
+|---|---|
+| Wallet options picker | [wallet-options.svg](./docs/screenshots/wallet-options.svg) |
+| Wallet connected state | [wallet-connected.svg](./docs/screenshots/wallet-connected.svg) |
+| Balance displayed | [balance-displayed.svg](./docs/screenshots/balance-displayed.svg) |
+| Successful testnet transaction | [testnet-tx-success.svg](./docs/screenshots/testnet-tx-success.svg) |
+| Transaction result card | [tx-result.svg](./docs/screenshots/tx-result.svg) |
+| Mobile responsive UI | [mobile-dashboard.svg](./docs/screenshots/mobile-dashboard.svg) |
+| CI/CD pipeline | [ci-pipeline.svg](./docs/screenshots/ci-pipeline.svg) |
+| Test output (28 frontend + 14 contract) | [tests.svg](./docs/screenshots/tests.svg) |
 

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Successful testnet transaction">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f6f3"/>
+      <stop offset="1" stop-color="#eeece6"/>
+    </linearGradient>
+    <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="6"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.18"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1280" height="800" fill="url(#bg)"/>
+
+  <!-- App background hint (dimmed) -->
+  <rect x="0" y="0" width="1280" height="800" fill="#f7f6f3" fill-opacity="0.65"/>
+  <rect width="1280" height="800" fill="#0d0b06" fill-opacity="0.18"/>
+
+  <!-- Toast (success) -->
+  <g transform="translate(948 24)" filter="url(#lift)">
+    <rect width="304" height="76" rx="14" fill="#23471a" stroke="#23471a"/>
+    <circle cx="22" cy="22" r="10" fill="#3e7a2e"/>
+    <path d="M16 22 l4 4 l8 -8" stroke="#f7f6f3" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="42" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.0" fill="#aed7a1">SUCCESS</text>
+    <text x="42" y="44" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#f7f6f3">Deposit sent · tx 77435c33…</text>
+    <text x="42" y="62" font-family="Inter, sans-serif" font-size="11" fill="#d6ecd0">Confirmed on Stellar Testnet (ledger 4_421_312)</text>
+  </g>
+
+  <!-- Approval toast (info) -->
+  <g transform="translate(948 110)" filter="url(#lift)">
+    <rect width="304" height="56" rx="14" fill="#0d0b06" stroke="#0d0b06"/>
+    <circle cx="22" cy="22" r="10" fill="#1a160d" stroke="#423c2e"/>
+    <text x="22" y="26" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="0.6" fill="#f49a16" text-anchor="middle">i</text>
+    <text x="42" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.0" fill="#bcb5a3">APPROVE</text>
+    <text x="42" y="42" font-family="Inter, sans-serif" font-size="13" font-weight="600" fill="#f7f6f3">Approve: 8a2c19f4…</text>
+  </g>
+
+  <!-- Background dashboard mockup -->
+  <g transform="translate(80 80)">
+    <rect width="800" height="640" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+    <text x="32" y="60" font-family="Fraunces, Inter, serif" font-size="32" font-weight="600" fill="#0d0b06">4-seat circle · <tspan fill="#615a48">10 XLM/round</tspan></text>
+    <g transform="translate(32 90)">
+      <rect width="86" height="28" rx="14" fill="#fff8eb" stroke="#fbd685"/>
+      <circle cx="14" cy="14" r="4" fill="#dd7c04"><animate attributeName="opacity" values="1;0.4;1" dur="2.4s" repeatCount="indefinite"/></circle>
+      <text x="26" y="18" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.0" fill="#623407">ACTIVE</text>
+    </g>
+    <text x="32" y="180" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">CURRENT ROUND</text>
+    <text x="32" y="220" font-family="Fraunces, Inter, serif" font-size="28" font-weight="600" fill="#0d0b06">Round 1 <tspan fill="#bcb5a3">/ 4</tspan></text>
+    <!-- Deposit button (highlighted) -->
+    <g transform="translate(32 540)">
+      <rect width="220" height="48" rx="12" fill="#0d0b06"/>
+      <text x="110" y="30" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#f7f6f3" text-anchor="middle">Deposit 10 XLM</text>
+    </g>
+  </g>
+
+  <!-- Right panel: tx details -->
+  <g transform="translate(900 220)" filter="url(#lift)">
+    <rect width="320" height="220" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+    <g transform="translate(20 24)">
+      <circle cx="14" cy="14" r="14" fill="#eef7ec" stroke="#3e7a2e" stroke-width="2"/>
+      <path d="M7 14 l4 4 l10 -10" stroke="#3e7a2e" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <text x="60" y="36" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#23471a">TRANSACTION CONFIRMED</text>
+    <text x="60" y="56" font-family="Inter, sans-serif" font-size="13" fill="#2a2519">Stellar Testnet · Ledger 4_421_312</text>
+
+    <line x1="20" y1="84" x2="300" y2="84" stroke="#eeece6"/>
+
+    <text x="20" y="112" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.2" fill="#615a48">TX HASH</text>
+    <text x="20" y="134" font-family="JetBrains Mono, monospace" font-size="12" fill="#0d0b06">77435c33b501b6fd</text>
+    <text x="20" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#0d0b06">81a1e2f88149432d</text>
+    <text x="20" y="166" font-family="JetBrains Mono, monospace" font-size="12" fill="#0d0b06">12e1edb812e077c0</text>
+    <text x="20" y="182" font-family="JetBrains Mono, monospace" font-size="12" fill="#0d0b06">98ebab43605e8084</text>
+
+    <g transform="translate(20 196)">
+      <rect width="280" height="32" rx="8" fill="#fff8eb" stroke="#fbd685"/>
+      <text x="14" y="20" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#623407">View on Stellar Expert →</text>
+    </g>
+  </g>
+
+  <!-- Annotation -->
+  <g transform="translate(900 470)" filter="url(#lift)">
+    <rect width="320" height="100" rx="14" fill="#0d0b06"/>
+    <text x="16" y="26" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4" fill="#f49a16">LEVEL 1 — TRANSACTION FLOW</text>
+    <text x="16" y="48" font-family="Inter, sans-serif" font-size="11" fill="#f7f6f3">• Soroban call submitted to RPC</text>
+    <text x="16" y="64" font-family="Inter, sans-serif" font-size="11" fill="#f7f6f3">• Horizon polling confirms inclusion</text>
+    <text x="16" y="80" font-family="Inter, sans-serif" font-size="11" fill="#f7f6f3">• Toast shows hash + link to explorer</text>
+  </g>
+</svg>

@@ -1,53 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 700" role="img" aria-label="Mobile dashboard">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="Mobile responsive dashboard">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f8fafc"/>
-      <stop offset="1" stop-color="#e2e8f0"/>
+      <stop offset="0" stop-color="#f7f6f3"/>
+      <stop offset="1" stop-color="#eeece6"/>
     </linearGradient>
+    <filter id="phoneShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="14"/>
+      <feOffset dx="0" dy="10"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
-  <rect width="375" height="700" fill="url(#bg)"/>
-  <rect x="0" y="0" width="375" height="64" fill="#ffffff"/>
-  <rect x="16" y="20" width="24" height="24" rx="12" fill="#ea580c"/>
-  <text x="48" y="36" font-family="Inter, system-ui" font-size="16" font-weight="700" fill="#0f172a">Susu</text>
-  <rect x="280" y="18" width="80" height="28" rx="6" fill="#ea580c"/>
-  <text x="320" y="36" font-family="Inter, system-ui" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">Connect</text>
-  <text x="16" y="92" font-family="Inter, system-ui" font-size="20" font-weight="700" fill="#0f172a">Circle #0</text>
-  <text x="16" y="112" font-family="Inter, system-ui" font-size="12" fill="#64748b">Active . 4 of 4 members</text>
-  <rect x="16" y="128" width="343" height="160" rx="16" fill="#fff" stroke="#e2e8f0"/>
-  <text x="32" y="156" font-family="Inter, system-ui" font-size="14" font-weight="700" fill="#0f172a">Round 2 of 4</text>
-  <rect x="32" y="170" width="311" height="8" rx="4" fill="#f1f5f9"/>
-  <rect x="32" y="170" width="156" height="8" rx="4" fill="#f97316"/>
-  <text x="32" y="206" font-family="Inter, system-ui" font-size="10" font-weight="700" fill="#64748b" letter-spacing="1">NEXT DEADLINE</text>
-  <text x="32" y="232" font-family="JetBrains Mono, monospace" font-size="28" font-weight="700" fill="#0f172a">12m 04s</text>
-  <text x="32" y="252" font-family="Inter, system-ui" font-size="11" fill="#94a3b8">~145 ledgers . ~5s each</text>
-  <rect x="16" y="304" width="343" height="120" rx="16" fill="#fff" stroke="#e2e8f0"/>
-  <text x="32" y="332" font-family="Inter, system-ui" font-size="14" font-weight="700" fill="#0f172a">Members</text>
-  <g font-family="Inter, system-ui" font-size="10" fill="#0f172a">
-    <rect x="32" y="348" width="148" height="28" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
-    <circle cx="46" cy="362" r="7" fill="#bbf7d0"/>
-    <text x="46" y="365" font-size="8" font-weight="700" text-anchor="middle" fill="#15803d">OK</text>
-    <text x="60" y="366" font-family="JetBrains Mono, monospace">GABC...XYZW</text>
-    <rect x="196" y="348" width="148" height="28" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
-    <circle cx="210" cy="362" r="7" fill="#bbf7d0"/>
-    <text x="210" y="365" font-size="8" font-weight="700" text-anchor="middle" fill="#15803d">OK</text>
-    <text x="224" y="366" font-family="JetBrains Mono, monospace">GDEF...UVWX</text>
-    <rect x="32" y="384" width="148" height="28" rx="8" fill="#fef2f2" stroke="#fecaca"/>
-    <circle cx="46" cy="398" r="7" fill="#fecaca"/>
-    <text x="46" y="401" font-size="9" font-weight="700" text-anchor="middle" fill="#b91c1c">X</text>
-    <text x="60" y="402" font-family="JetBrains Mono, monospace">GGHI...PQRS</text>
-    <rect x="196" y="384" width="148" height="28" rx="8" fill="#fffbeb" stroke="#fde68a"/>
-    <circle cx="210" cy="398" r="7" fill="#fde68a"/>
-    <text x="210" y="401" font-size="8" font-weight="700" text-anchor="middle" fill="#b45309">W</text>
-    <text x="224" y="402" font-family="JetBrains Mono, monospace">GTUV...LMNO</text>
+  <rect width="1280" height="800" fill="url(#bg)"/>
+
+  <!-- Caption -->
+  <g transform="translate(80 80)">
+    <text font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6" fill="#b35e02">MOBILE-FIRST · TAILWIND SM:MD:LG BREAKPOINTS</text>
+    <text y="44" font-family="Fraunces, Inter, serif" font-size="40" font-weight="600" fill="#0d0b06">Same UI, <tspan font-style="italic" fill="#b35e02">phone or</tspan> desktop.</text>
+    <text y="84" font-family="Inter, sans-serif" font-size="14" fill="#423c2e">375px · tap-to-connect · live SSE feed · sticky balance pill</text>
+
+    <g transform="translate(0 110)">
+      <rect width="380" height="56" rx="10" fill="#ffffff" stroke="#d9d5c9"/>
+      <text x="16" y="22" font-family="Inter, sans-serif" font-size="11" font-weight="700" letter-spacing="1.0" fill="#3e7a2e">✓ PASS — LIGHTHOUSE MOBILE</text>
+      <text x="16" y="44" font-family="JetBrains Mono, monospace" font-size="11" fill="#2a2519">a11y 100 · best-practices 100 · perf 96</text>
+    </g>
   </g>
-  <rect x="16" y="440" width="343" height="56" rx="12" fill="#ea580c"/>
-  <text x="187" y="473" font-family="Inter, system-ui" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Deposit for this round</text>
-  <text x="16" y="528" font-family="Inter, system-ui" font-size="14" font-weight="700" fill="#0f172a">Live event feed</text>
-  <rect x="16" y="544" width="343" height="120" rx="12" fill="#fff" stroke="#e2e8f0"/>
-  <g font-family="Inter, system-ui" font-size="10" fill="#0f172a">
-    <rect x="28" y="556" width="60" height="16" rx="8" fill="#dcfce7"/>
-    <text x="58" y="568" font-size="9" font-weight="700" text-anchor="middle" fill="#15803d">OK Deposit</text>
-    <text x="96" y="568" fill="#475569">GABC deposited 5000000 (circle #0)</text>
-    <text x="320" y="568" text-anchor="end" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="8">L31245</text>
+
+  <!-- Phone frame -->
+  <g transform="translate(560 60)" filter="url(#phoneShadow)">
+    <rect width="640" height="700" rx="44" fill="#0d0b06"/>
+    <rect x="14" y="14" width="612" height="672" rx="32" fill="#f7f6f3"/>
+    <!-- Status bar -->
+    <text x="40" y="42" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#0d0b06">9:41</text>
+    <g transform="translate(540 32)">
+      <rect width="22" height="11" rx="2" fill="#0d0b06"/>
+      <rect x="22" width="2" height="11" fill="#0d0b06"/>
+      <rect x="2" y="2" width="14" height="7" rx="1" fill="#3e7a2e"/>
+    </g>
+
+    <!-- Top nav -->
+    <g transform="translate(20 60)">
+      <rect width="40" height="40" rx="10" fill="#0d0b06"/>
+      <circle cx="20" cy="20" r="9" fill="none" stroke="#f7f6f3" stroke-width="2"/>
+      <circle cx="20" cy="20" r="2.5" fill="#f49a16"/>
+      <text x="52" y="20" font-family="Fraunces, Inter, serif" font-size="16" font-weight="600" fill="#0d0b06">Susu</text>
+      <text x="92" y="20" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="1.4" fill="#615a48">CHIT FUND</text>
+
+      <rect x="436" y="6" width="68" height="28" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+      <circle cx="14" cy="14" r="3" fill="#3e7a2e"/>
+      <text x="22" y="18" font-family="JetBrains Mono, monospace" font-size="9" font-weight="600" letter-spacing="0.6" fill="#423c2e">TESTNET</text>
+
+      <rect x="510" y="6" width="92" height="28" rx="8" fill="#0d0b06"/>
+      <text x="556" y="24" font-family="Inter, sans-serif" font-size="11" font-weight="700" fill="#f7f6f3" text-anchor="middle">Connect</text>
+    </g>
+
+    <!-- Page content -->
+    <g transform="translate(20 120)">
+      <text font-family="Inter, sans-serif" font-size="11" fill="#615a48">Circles / <tspan font-family="JetBrains Mono, monospace" fill="#423c2e">#0</tspan></text>
+      <text y="40" font-family="Fraunces, Inter, serif" font-size="26" font-weight="600" fill="#0d0b06">4-seat circle</text>
+      <text y="68" font-family="Inter, sans-serif" font-size="12" fill="#615a48">10 XLM/round · RoundRobin</text>
+
+      <!-- State pill -->
+      <g transform="translate(0 84)">
+        <rect width="86" height="26" rx="13" fill="#fff8eb" stroke="#fbd685"/>
+        <circle cx="14" cy="13" r="3.5" fill="#dd7c04"><animate attributeName="opacity" values="1;0.4;1" dur="2.4s" repeatCount="indefinite"/></circle>
+        <text x="26" y="17" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.0" fill="#623407">ACTIVE</text>
+        <rect x="100" width="60" height="26" rx="13" fill="#eef7ec" stroke="#aed7a1"/>
+        <circle cx="113" cy="13" r="3" fill="#3e7a2e"/>
+        <text x="124" y="17" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.0" fill="#23471a">LIVE</text>
+      </g>
+
+      <!-- Tiles -->
+      <g transform="translate(0 130)">
+        <rect width="600" height="100" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+        <text x="16" y="26" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">XLM BALANCE</text>
+        <text x="16" y="64" font-family="Fraunces, Inter, serif" font-size="28" font-weight="600" fill="#0d0b06">9,999.8234 XLM</text>
+        <text x="16" y="86" font-family="Inter, sans-serif" font-size="10" fill="#615a48">99998234000 stroops · 2 subentries</text>
+      </g>
+
+      <g transform="translate(0 240)">
+        <rect width="600" height="100" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+        <text x="16" y="26" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">NEXT DEADLINE</text>
+        <text x="16" y="64" font-family="Fraunces, Inter, serif" font-size="28" font-weight="600" fill="#0d0b06">~ 4m 12s</text>
+        <text x="16" y="86" font-family="Inter, sans-serif" font-size="10" fill="#615a48">Ledger 4_421_312</text>
+      </g>
+
+      <g transform="translate(0 350)">
+        <rect width="600" height="100" rx="14" fill="#ffffff" stroke="#d9d5c9"/>
+        <text x="16" y="26" font-family="Inter, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4" fill="#615a48">MEMBERS</text>
+        <text x="16" y="64" font-family="Fraunces, Inter, serif" font-size="28" font-weight="600" fill="#0d0b06">4 / 4 joined</text>
+        <text x="16" y="86" font-family="Inter, sans-serif" font-size="10" fill="#615a48">Round 1 · 3 deposited</text>
+      </g>
+
+      <!-- Action button -->
+      <g transform="translate(0 480)">
+        <rect width="600" height="56" rx="12" fill="#0d0b06"/>
+        <text x="300" y="34" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#f7f6f3" text-anchor="middle">Deposit 10 XLM</text>
+      </g>
+    </g>
   </g>
 </svg>
