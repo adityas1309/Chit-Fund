@@ -78,7 +78,9 @@ impl PenaltyHandler {
     /// One-time initialisation. Stores the address of the only contract that
     /// may invoke `slash` (typically the savings_circle contract).
     pub fn init(env: Env, authorized_caller: Address) {
-        env.storage().instance().set(&DataKey::Auth, &authorized_caller);
+        env.storage()
+            .instance()
+            .set(&DataKey::Auth, &authorized_caller);
     }
 
     /// Read-only accessor for the authorised caller (used by tests + UIs).
@@ -125,9 +127,7 @@ impl PenaltyHandler {
         let share = collateral_amount
             .checked_div(count)
             .ok_or(Error::Overflow)?;
-        let total_paid = share
-            .checked_mul(count)
-            .ok_or(Error::Overflow)?;
+        let total_paid = share.checked_mul(count).ok_or(Error::Overflow)?;
 
         // 4. Distribute from this contract to each recipient. The caller
         //    is expected to have already transferred the funds to us.

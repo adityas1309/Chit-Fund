@@ -1,9 +1,4 @@
-#![allow(
-    deprecated,
-    unused_imports,
-    unused_variables,
-    dead_code,
-)]
+#![allow(deprecated, unused_imports, unused_variables, dead_code)]
 
 use super::*;
 use soroban_sdk::{
@@ -58,21 +53,24 @@ fn test_unauthorized_caller_rejected() {
 
     // Authorise only `unrelated` to call `slash`. The contract internally
     // calls `authorised.require_auth()` which will fail.
-    env.set_auths(&[MockAuth {
-        address: &unrelated,
-        invoke: &MockAuthInvoke {
-            contract: &contract_id,
-            fn_name: "slash",
-            args: (
-                &token_address,
-                &defaulter,
-                1_000i128,
-                Vec::from_array(&env, [Address::generate(&env)]),
-            )
-                .into_val(&env),
-            sub_invokes: &[],
-        },
-    }].map(Into::into));
+    env.set_auths(
+        &[MockAuth {
+            address: &unrelated,
+            invoke: &MockAuthInvoke {
+                contract: &contract_id,
+                fn_name: "slash",
+                args: (
+                    &token_address,
+                    &defaulter,
+                    1_000i128,
+                    Vec::from_array(&env, [Address::generate(&env)]),
+                )
+                    .into_val(&env),
+                sub_invokes: &[],
+            },
+        }]
+        .map(Into::into),
+    );
 
     let res = client.try_slash(
         &token_address,

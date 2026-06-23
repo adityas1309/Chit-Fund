@@ -26,8 +26,7 @@
 //! transaction as the round closure.
 
 use soroban_sdk::{
-    contract, contracterror, contractevent, contractimpl, contracttype,
-    token, Address, Env, Vec,
+    contract, contracterror, contractevent, contractimpl, contracttype, token, Address, Env, Vec,
 };
 
 // ---------------- Penalty Handler client (trait stub) ----------------
@@ -145,7 +144,6 @@ pub struct CircleView {
 
 // ---------------- Errors ----------------
 
-
 #[contracterror]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
 pub enum Error {
@@ -252,7 +250,9 @@ impl SavingsCircle {
     /// One-time init that records the PenaltyHandler address. Required before
     /// any circle can be created.
     pub fn init(env: Env, penalty_contract: Address) {
-        env.storage().instance().set(&DataKey::PenaltyContract, &penalty_contract);
+        env.storage()
+            .instance()
+            .set(&DataKey::PenaltyContract, &penalty_contract);
     }
 
     pub fn get_penalty_contract(env: Env) -> Result<Address, Error> {
@@ -348,8 +348,12 @@ impl SavingsCircle {
             rr_cursor: 0,
         };
 
-        env.storage().persistent().set(&DataKey::Circle(id), &circle);
-        env.storage().instance().set(&DataKey::NextCircleId, &next_id);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Circle(id), &circle);
+        env.storage()
+            .instance()
+            .set(&DataKey::NextCircleId, &next_id);
 
         CircleCreated {
             circle_id: id,
@@ -413,7 +417,9 @@ impl SavingsCircle {
             circle.state = CircleState::Active;
         }
 
-        env.storage().persistent().set(&DataKey::Circle(circle_id), &circle);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Circle(circle_id), &circle);
 
         MemberJoined {
             circle_id,
@@ -432,7 +438,10 @@ impl SavingsCircle {
 
         let mut circle = Self::get_circle(&env, circle_id)?;
         let round_idx = circle.rounds.len() - 1;
-        let mut round = { let r = circle.rounds.get(round_idx).unwrap(); r.clone() };
+        let mut round = {
+            let r = circle.rounds.get(round_idx).unwrap();
+            r.clone()
+        };
 
         if round.closed {
             return Err(Error::RoundAlreadyClosed);
@@ -475,7 +484,11 @@ impl SavingsCircle {
 
         // Pull deposit.
         let token_client = token::Client::new(&env, &circle.token);
-        token_client.transfer(&member, &env.current_contract_address(), &circle.deposit_amount);
+        token_client.transfer(
+            &member,
+            &env.current_contract_address(),
+            &circle.deposit_amount,
+        );
 
         // Update state.
         member_obj.deposited_current_round = true;
@@ -486,7 +499,9 @@ impl SavingsCircle {
             .ok_or(Error::InvalidConfig)?;
         circle.rounds.set(round_idx, round.clone());
 
-        env.storage().persistent().set(&DataKey::Circle(circle_id), &circle);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Circle(circle_id), &circle);
 
         DepositReceived {
             circle_id,
@@ -507,7 +522,10 @@ impl SavingsCircle {
             return Err(Error::CircleNotOpen);
         }
         let round_idx = circle.rounds.len() - 1;
-        let mut round = { let r = circle.rounds.get(round_idx).unwrap(); r.clone() };
+        let mut round = {
+            let r = circle.rounds.get(round_idx).unwrap();
+            r.clone()
+        };
         if round.closed {
             return Err(Error::RoundAlreadyClosed);
         }
@@ -531,7 +549,11 @@ impl SavingsCircle {
 
         // Slash defaulters (in order) via the penalty handler.
         let mut slashed_total: i128 = 0;
-        let penalty_address: Address = env.storage().instance().get(&DataKey::PenaltyContract).ok_or(Error::NotInitialized)?;
+        let penalty_address: Address = env
+            .storage()
+            .instance()
+            .get(&DataKey::PenaltyContract)
+            .ok_or(Error::NotInitialized)?;
         let penalty_client = PenaltyHandlerClient::new(&env, &penalty_address);
 
         for d in defaulters.iter() {
@@ -546,12 +568,8 @@ impl SavingsCircle {
                 &circle.collateral_amount,
             );
 
-            let paid = penalty_client.slash(
-                &circle.token,
-                &d,
-                &circle.collateral_amount,
-                &eligible,
-            );
+            let paid =
+                penalty_client.slash(&circle.token, &d, &circle.collateral_amount, &eligible);
             slashed_total = slashed_total
                 .checked_add(paid)
                 .ok_or(Error::InvalidConfig)?;
@@ -669,7 +687,9 @@ impl SavingsCircle {
         }
 
         // Persist before potential further work.
-        env.storage().persistent().set(&DataKey::Circle(circle_id), &circle);
+        env.storage()
+            .persistent()
+            .set(&DataKey::Circle(circle_id), &circle);
 
         // If complete, refund collateral back to good members.
         if all_done {
@@ -698,7 +718,9 @@ impl SavingsCircle {
                 winner: None,
                 total_collected: 0,
             });
-            env.storage().persistent().set(&DataKey::Circle(circle_id), &circle);
+            env.storage()
+                .persistent()
+                .set(&DataKey::Circle(circle_id), &circle);
         }
 
         Ok(())
@@ -785,7 +807,11 @@ impl SavingsCircle {
             .unwrap_or(0u64);
         let mut out: Vec<u64> = Vec::new(&env);
         for i in 0..next {
-            if let Some(c) = env.storage().persistent().get::<DataKey, Circle>(&DataKey::Circle(i)) {
+            if let Some(c) = env
+                .storage()
+                .persistent()
+                .get::<DataKey, Circle>(&DataKey::Circle(i))
+            {
                 if c.state == CircleState::Open {
                     out.push_back(i);
                 }
@@ -802,11 +828,7 @@ impl SavingsCircle {
             .unwrap_or(0u64);
         let mut out: Vec<u64> = Vec::new(&env);
         for i in 0..next {
-            if env
-                .storage()
-                .persistent()
-                .has(&DataKey::Circle(i))
-            {
+            if env.storage().persistent().has(&DataKey::Circle(i)) {
                 out.push_back(i);
             }
         }

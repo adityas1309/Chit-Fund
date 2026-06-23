@@ -126,8 +126,8 @@ async function submit(
   // tx actually landed. Without polling, errors like txBadSeq / txBadAuth
   // or a contract revert would surface as a misleading "Circle created"
   // toast and the dashboard would stay out of sync.
-  if ((sendRes as any).status === "ERROR") {
-    const err = (sendRes as any).errorResult;
+  if (sendRes.status === "ERROR") {
+    const err = sendRes.errorResult;
     throw new SusuError("RPC_REJECTED", opLabel + " rejected by RPC: " + JSON.stringify(err ?? sendRes), { details: { err } });
   }
   const hash: string = sendRes.hash;
@@ -151,7 +151,7 @@ async function pollForConfirmation(hash: string, opLabel: string): Promise<void>
     let res;
     try {
       res = await fetch(url);
-    } catch (e) {
+    } catch {
       await sleep(POLL_INTERVAL_MS);
       continue;
     }
@@ -374,4 +374,3 @@ export async function fundTestnetAccount(publicKey: string): Promise<void> {
     throw new SusuError("FRIENDBOT_FAILED", "Friendbot failed: HTTP " + res.status, { details: { status: res.status, publicKey } });
   }
 }
-

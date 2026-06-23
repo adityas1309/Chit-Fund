@@ -1,10 +1,5 @@
 #![cfg(test)]
-#![allow(
-    deprecated,
-    unused_imports,
-    unused_variables,
-    dead_code,
-)]
+#![allow(deprecated, unused_imports, unused_variables, dead_code)]
 
 //! Integration tests for the SavingsCircle contract.
 
@@ -40,13 +35,7 @@ fn approve_collateral(
 
 // Approve the savings circle to pull the member's collateral. The slash
 // itself is performed by the penalty handler against the savings_circle.
-fn approve_penalty(
-    env: &Env,
-    token: &Address,
-    member: &Address,
-    spender: &Address,
-    amount: i128,
-) {
+fn approve_penalty(env: &Env, token: &Address, member: &Address, spender: &Address, amount: i128) {
     let t = token::Client::new(env, token);
     t.approve(member, spender, &amount, &10_000);
 }
