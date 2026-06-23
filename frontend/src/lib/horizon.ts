@@ -62,8 +62,18 @@ export function subscribeToEvents(
 
   let closed = false;
   let es: EventSource | null = null;
+  let notified = false;
 
-  // EventSource doesn't send custom headers, but Horizon SSE doesn't need any.
+  // Some Horizon deployments (notably testnet) do not expose the
+  // /events SSE endpoint. EventSource will fire an error event with a
+  // 404 status, which we suppress after the first failure so the
+  // console does not stay noisy.
+  const notifyOnce = (e: Error) => {
+    if (closed || notified) return;
+    notified = true;
+    onError?.(e);
+  };
+
   try {
     es = new EventSource(url);
     es.onmessage = (msg) => {
@@ -72,16 +82,21 @@ export function subscribeToEvents(
         const decoded = decodeEvent(parsed);
         onEvent({ ...parsed, decoded });
       } catch (e) {
-        onError?.(e as Error);
+        notifyOnce(e as Error);
       }
     };
     es.onerror = () => {
-      if (!closed) {
-        onError?.(new Error("EventStream error"));
-      }
+      // EventSource auto-retries internally, so we only surface the first
+      // failure. Reopening the same URL on a 404 would just spam the
+      // console, so we close the stream instead.
+      if (closed) return;
+      notifyOnce(new Error("EventStream unavailable; live feed disabled."));
+      closed = true;
+      es?.close();
+      es = null;
     };
   } catch (e) {
-    onError?.(e as Error);
+    notifyOnce(e as Error);
   }
 
   return () => {

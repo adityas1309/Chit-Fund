@@ -74,3 +74,36 @@ describe("createCircle selectionMode encoding", () => {
     ).not.toBeNull();
   });
 });
+
+
+// Regression: when a user "creates a circle" the dashboard used to take the
+// hash returned by sendTransaction at face value and immediately navigate to
+// /circles. Soroban's sendTransaction is asynchronous, so the tx could be
+// txBadSeq, txBadAuth, or revert inside the contract while the UI still
+// showed a "Circle created" toast. After the fix, submit() must:
+//   1. Reject when sendTransaction itself returns status === "ERROR".
+//   2. Poll getTransaction until the tx reaches a terminal status, throwing
+//      on FAILED and returning only on SUCCESS.
+describe("submit() polls for confirmation", () => {
+  it("calls getTransaction after sendTransaction and waits for a terminal status", async () => {
+    const source: string = (await import("../lib/contract.ts?raw")).default;
+    const idx = source.indexOf("async function submit");
+    expect(idx, "submit() must be defined in contract.ts").toBeGreaterThan(-1);
+    const section = source.slice(idx);
+    // The send result must be inspected; a status of "ERROR" must throw.
+    expect(section, "sendTransaction result must be checked for ERROR status").toMatch(
+      /\.status\s*===\s*"ERROR"/
+    );
+    // The submit body must invoke getTransaction to poll for confirmation.
+    expect(section, "submit() must call server.getTransaction to confirm").toMatch(
+      /getTransaction\s*\(/
+    );
+    // It must treat SUCCESS and FAILED as terminal states.
+    expect(section, "submit() must recognise GetTransactionStatus.SUCCESS").toMatch(
+      /GetTransactionStatus\.SUCCESS/
+    );
+    expect(section, "submit() must throw on GetTransactionStatus.FAILED").toMatch(
+      /GetTransactionStatus\.FAILED/
+    );
+  });
+});

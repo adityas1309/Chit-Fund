@@ -1,4 +1,4 @@
-﻿// High-level Soroban contract client. Wraps the Stellar JS SDK and the
+// High-level Soroban contract client. Wraps the Stellar JS SDK and the
 // generated contract bindings so the rest of the app does not have to deal
 // with low-level XDR manipulation.
 
@@ -105,16 +105,65 @@ async function getSourceAccount(publicKey: string): Promise<Account> {
 
 async function submit(
   tx: Transaction,
-  sign: (xdr: string, passphrase: string) => Promise<string>
-): Promise<rpc.Api.SendTransactionResponse> {
+  sign: (xdr: string, passphrase: string) => Promise<string>,
+  opLabel: string = "Transaction"
+): Promise<string> {
   const sim = await server.simulateTransaction(tx);
   if (rpc.Api.isSimulationError(sim)) {
     throw new Error("Simulation failed: " + JSON.stringify(sim));
   }
   const prepared = rpc.assembleTransaction(tx, sim).build();
-  const signedXdr = await sign(prepared.toEnvelope().toXDR().toString("base64"), NETWORK.networkPassphrase);
+  const signedXdr = await sign(
+    prepared.toEnvelope().toXDR().toString("base64"),
+    NETWORK.networkPassphrase
+  );
   const signedTx = TransactionBuilder.fromXDR(signedXdr, NETWORK.networkPassphrase);
-  return server.sendTransaction(signedTx);
+  const sendRes = await server.sendTransaction(signedTx);
+  // Soroban's sendTransaction is asynchronous: even on success the RPC may
+  // return PENDING and we have to poll getTransaction to learn whether the
+  // tx actually landed. Without polling, errors like txBadSeq / txBadAuth
+  // or a contract revert would surface as a misleading "Circle created"
+  // toast and the dashboard would stay out of sync.
+  if ((sendRes as any).status === "ERROR") {
+    const err = (sendRes as any).errorResult;
+    throw new Error(opLabel + " rejected by RPC: " + JSON.stringify(err ?? sendRes));
+  }
+  const hash: string = sendRes.hash;
+  await pollForConfirmation(hash, opLabel);
+  return hash;
+}
+
+const POLL_INTERVAL_MS = 1500;
+const POLL_TIMEOUT_MS = 90_000;
+
+async function pollForConfirmation(hash: string, opLabel: string): Promise<void> {
+  const deadline = Date.now() + POLL_TIMEOUT_MS;
+  let lastStatus: string = "PENDING";
+  while (Date.now() < deadline) {
+    let resp: any;
+    try {
+      resp = await server.getTransaction(hash);
+    } catch (e) {
+      // Transient RPC errors are not fatal; keep polling until timeout.
+      await sleep(POLL_INTERVAL_MS);
+      continue;
+    }
+    if (resp.status === rpc.Api.GetTransactionStatus.SUCCESS) {
+      return;
+    }
+    if (resp.status === rpc.Api.GetTransactionStatus.FAILED) {
+      throw new Error(
+        opLabel + " failed on-chain: " + JSON.stringify(resp, (_k, v) => (typeof v === "bigint" ? v.toString() : v))
+      );
+    }
+    lastStatus = resp.status ?? lastStatus;
+    await sleep(POLL_INTERVAL_MS);
+  }
+  throw new Error(opLabel + " timed out waiting for confirmation (last status: " + lastStatus + ")");
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export async function createCircle(
@@ -146,8 +195,7 @@ export async function createCircle(
     )
     .setTimeout(60)
     .build();
-  const res = await submit(tx, wallet.signTransaction);
-  return res.hash;
+  return await submit(tx, wallet.signTransaction, "create_circle");
 }
 
 export async function joinCircle(
@@ -168,8 +216,7 @@ export async function joinCircle(
     )
     .setTimeout(60)
     .build();
-  const res = await submit(tx, wallet.signTransaction);
-  return res.hash;
+  return await submit(tx, wallet.signTransaction, "join_circle");
 }
 
 export async function deposit(
@@ -190,8 +237,7 @@ export async function deposit(
     )
     .setTimeout(60)
     .build();
-  const res = await submit(tx, wallet.signTransaction);
-  return res.hash;
+  return await submit(tx, wallet.signTransaction, "deposit");
 }
 
 export async function closeRound(
@@ -211,8 +257,7 @@ export async function closeRound(
     )
     .setTimeout(60)
     .build();
-  const res = await submit(tx, wallet.signTransaction);
-  return res.hash;
+  return await submit(tx, wallet.signTransaction, "close_round");
 }
 
 export async function approveToken(
@@ -238,8 +283,7 @@ export async function approveToken(
     )
     .setTimeout(60)
     .build();
-  const res = await submit(tx, wallet.signTransaction);
-  return res.hash;
+  return await submit(tx, wallet.signTransaction, "approve_token");
 }
 
 
