@@ -15,7 +15,7 @@
 | **Live demo (Vercel)** | https://susu-chit-fund.vercel.app |
 | **Source repo** | https://github.com/adityas1309/4 |
 | **Network** | Stellar Testnet (Test SDF Network ; September 2015) |
-| **Demo video** | [demo.mp4](./demo.mp4) — 1:54, 60 MB |
+| **Demo video (1:54)** | ?? [Watch on GitHub](./demo.mp4) � [Direct download](./demo.mp4?raw=1) � 60 MB � 1080p |
 | **Stellar Expert (savings)** | [CBUZIODOJ…](https://stellar.expert/explorer/testnet/contract/CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E) |
 | **Stellar Expert (penalty)** | [CA6QMZ2CA…](https://stellar.expert/explorer/testnet/contract/CA6QMZ2CA3WETF2IKWYBIKRRG4VTQIQVOZGMQ5HMLGRZUE4THANL33C4) |
 | **First create_circle tx** | [77435c33…e8084](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084) |
@@ -37,7 +37,7 @@
 - [x] **Contract deployed on testnet** — see [Testnet deployment](#testnet-deployment-live)
 - [x] **Contract called from the frontend** — `join_circle`, `deposit`, `close_round`, `approve_token` in `frontend/src/lib/contract.ts`
 - [x] **Transaction status visible** — toast with truncated hash + full hash in tx card + Horizon polling
-- [x] **Minimum 2+ meaningful commits** — 22 commits on `main` (see [git log](https://github.com/adityas1309/4/commits/main))
+- [x] **Minimum 2+ meaningful commits** — 23 commits on `main` (see [git log](https://github.com/adityas1309/4/commits/main))
 - [x] **Multi-wallet app** — Freighter, Albedo, Rabet (`frontend/src/lib/wallets.ts`)
 - [x] **Deployed contract address** — `CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E`
 - [x] **Transaction hash of a contract call** — [77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084)
@@ -56,7 +56,7 @@
 - [x] **Tests for contracts and frontend** — 14 contract + 28 frontend; ![Test output](docs/screenshots/tests.svg)
 - [x] **Production-ready architecture** — see [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) and [docs/SECURITY.md](./docs/SECURITY.md)
 - [x] **Documentation & demo presentation** — [docs/DEMO.md](./docs/DEMO.md) walkthrough script; [demo.mp4](./demo.mp4) recording
-- [x] **Minimum 10+ meaningful commits** — 22 commits on `main`
+- [x] **Minimum 10+ meaningful commits** — 23 commits on `main`
 - [x] **CI/CD pipeline running** — ![CI pipeline](docs/screenshots/ci-pipeline.svg)
 - [x] **Test output with 3+ passing tests** — ![Test output](docs/screenshots/tests.svg)
 
@@ -273,7 +273,32 @@ Copy them into `frontend/.env`.
 | Contract test| `cargo test` (14 tests)                    |
 | Frontend test| Vitest + Testing Library (28 tests)        |
 
-## Demo video script (1–2 minutes)
+## Demo video (1:54, 1080p)
+
+A 1-minute 54-second end-to-end walkthrough of the live app on Stellar
+Testnet, covering wallet connect, circle creation, multi-wallet joins,
+deposits, round close, defaulter slash, and the green CI run.
+
+> **File:** [demo.mp4](./demo.mp4) · **Size:** 60 MB · **Duration:** 1:54
+> · **Resolution:** 1080p · **Codec:** H.264/AAC
+>
+> **Watch on GitHub:** [Open demo.mp4](./demo.mp4)
+> · **Direct download:** [demo.mp4?raw=1](./demo.mp4?raw=1)
+> · **Script:** [docs/DEMO.md](./docs/DEMO.md)
+
+<!-- HTML5 player fallback for non-GitHub renderers (Vercel, local preview) -->
+<details>
+<summary><strong>▶ Watch inline (HTML5 player)</strong></summary>
+
+<video controls preload="metadata" width="100%" poster="docs/screenshots/mobile-dashboard.svg">
+  <source src="./demo.mp4" type="video/mp4" />
+  Your browser does not support embedded video. Download
+  <a href="./demo.mp4?raw=1">demo.mp4</a> to watch it locally.
+</video>
+
+</details>
+
+### Walkthrough script (matches the video)
 
 1. **Create a circle.** 4 members, 5 XLM each, 60-ledger round
    interval, round-robin.
@@ -291,9 +316,8 @@ Copy them into `frontend/.env`.
 7. **Show CI pipeline.** Walk through the green check on the GitHub
    Actions run.
 
-The recorded walkthrough is at [demo.mp4](./demo.mp4). The matching
-[docs/DEMO.md](./docs/DEMO.md) document has the on-screen prompts and
-expected state for each step.
+The matching [docs/DEMO.md](./docs/DEMO.md) document has the on-screen
+prompts and expected state for each step.
 
 ## Testnet deployment (live)
 
