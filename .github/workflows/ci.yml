@@ -107,7 +107,7 @@ jobs:
   deploy-testnet:
     name: Deploy to Stellar Testnet
     needs: [contracts, frontend]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && secrets.SOROBAN_SECRET_KEY != ''
     runs-on: ubuntu-latest
     environment: testnet
     steps:
