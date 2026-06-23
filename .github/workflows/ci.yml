@@ -104,6 +104,56 @@ jobs:
           name: frontend-dist
           path: frontend/dist
 
+  deploy-vercel:
+    name: Deploy to Vercel
+    needs: frontend
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Install
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build
+        working-directory: frontend
+        env:
+          VITE_SAVINGS_CIRCLE_CONTRACT_ID: ${{ secrets.SAVINGS_CIRCLE_CONTRACT_ID }}
+          VITE_PENALTY_HANDLER_CONTRACT_ID: ${{ secrets.PENALTY_HANDLER_CONTRACT_ID }}
+          VITE_CIRCLE_TOKEN_CONTRACT_ID: ${{ secrets.CIRCLE_TOKEN_CONTRACT_ID }}
+        run: npm run build
+
+      - name: Check Vercel config
+        id: vercel_config
+        run: |
+          if [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy
+        if: steps.vercel_config.outputs.enabled == 'true'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: frontend
+          vercel-args: "--prod"
+
   deploy-testnet:
     name: Deploy to Stellar Testnet
     needs: [contracts, frontend]
