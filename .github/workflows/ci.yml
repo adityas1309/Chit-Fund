@@ -53,7 +53,7 @@ jobs:
         run: cargo build --target wasm32v1-none --release -p savings_circle
 
       - name: Upload WASM artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: wasm
           path: |
@@ -99,7 +99,7 @@ jobs:
         run: npm run build
 
       - name: Upload dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: frontend-dist
           path: frontend/dist
@@ -124,7 +124,7 @@ jobs:
         run: cargo install --locked soroban-cli --version 21.0.0
 
       - name: Download WASM
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: wasm
           path: artifacts
@@ -156,7 +156,7 @@ jobs:
           echo "$ID" > savings_address.txt
 
       - name: Upload deployment addresses
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: deployment-addresses
           path: artifacts/*.txt
