@@ -15,6 +15,7 @@ import {
   rpc,
 } from "@stellar/stellar-sdk";
 import { NETWORK, SAVINGS_CIRCLE_CONTRACT_ID } from "./config";
+import { SusuError } from "./errors";
 import { WalletState } from "./wallet";
 
 const server = new rpc.Server(NETWORK.sorobanRpcUrl, { allowHttp: false });
@@ -96,9 +97,10 @@ async function getSourceAccount(publicKey: string): Promise<Account> {
     return await server.getAccount(publicKey);
   } catch (e) {
     // Friendbot fallback for fresh testnet accounts.
-    throw new Error(
-      "Failed to load account from Soroban RPC. Is the account funded? " +
-        String((e as Error).message ?? e)
+    throw new SusuError(
+      "ON_CHAIN_FAILED",
+      "Failed to load account from Soroban RPC. Is the account funded? " + String((e as Error).message ?? e),
+      { cause: e, details: { publicKey } }
     );
   }
 }
@@ -126,7 +128,7 @@ async function submit(
   // toast and the dashboard would stay out of sync.
   if ((sendRes as any).status === "ERROR") {
     const err = (sendRes as any).errorResult;
-    throw new Error(opLabel + " rejected by RPC: " + JSON.stringify(err ?? sendRes));
+    throw new SusuError("RPC_REJECTED", opLabel + " rejected by RPC: " + JSON.stringify(err ?? sendRes), { details: { err } });
   }
   const hash: string = sendRes.hash;
   await pollForConfirmation(hash, opLabel);
@@ -157,12 +159,14 @@ async function pollForConfirmation(hash: string, opLabel: string): Promise<void>
       const body = await res.json().catch(() => ({}));
       if (body.successful === true) return;
       if (body.successful === false) {
-        throw new Error(
+        throw new SusuError(
+          "ON_CHAIN_FAILED",
           opLabel + " failed on-chain: " + JSON.stringify({
             hash: body.hash,
             result_xdr: body.result_xdr,
             ledger: body.ledger,
-          })
+          }),
+          { details: { hash: body.hash, result_xdr: body.result_xdr, ledger: body.ledger } }
         );
       }
     } else if (res.status === 404) {
@@ -172,7 +176,7 @@ async function pollForConfirmation(hash: string, opLabel: string): Promise<void>
     }
     await sleep(POLL_INTERVAL_MS);
   }
-  throw new Error(opLabel + " timed out waiting for confirmation (last status: " + lastDetail + ")");
+  throw new SusuError("CONFIRMATION_TIMEOUT", opLabel + " timed out waiting for confirmation (last status: " + lastDetail + ")", { details: { lastDetail, hash } });
 }
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -367,7 +371,7 @@ export async function fundTestnetAccount(publicKey: string): Promise<void> {
   const url = `${NETWORK.friendbotUrl}?addr=${publicKey}`;
   const res = await fetch(url);
   if (!res.ok) {
-    throw new Error(`Friendbot failed: HTTP ${res.status}`);
+    throw new SusuError("FRIENDBOT_FAILED", "Friendbot failed: HTTP " + res.status, { details: { status: res.status, publicKey } });
   }
 }
 
