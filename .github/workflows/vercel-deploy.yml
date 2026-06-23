@@ -10,7 +10,6 @@ jobs:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
     environment: production
-    if: ${{ secrets.VERCEL_TOKEN != '' && secrets.VERCEL_ORG_ID != '' && secrets.VERCEL_PROJECT_ID != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -32,7 +31,21 @@ jobs:
           VITE_CIRCLE_TOKEN_CONTRACT_ID: ${{ secrets.CIRCLE_TOKEN_CONTRACT_ID }}
         run: npm run build
 
+      - name: Check Vercel config
+        id: vercel_config
+        run: |
+          if [ -n "$VERCEL_TOKEN" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
       - name: Deploy
+        if: steps.vercel_config.outputs.enabled == 'true'
         uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}

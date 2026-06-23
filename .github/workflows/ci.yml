@@ -107,7 +107,6 @@ jobs:
   deploy-testnet:
     name: Deploy to Stellar Testnet
     needs: [contracts, frontend]
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && secrets.SOROBAN_SECRET_KEY != ''
     runs-on: ubuntu-latest
     environment: testnet
     steps:
@@ -129,11 +128,24 @@ jobs:
           name: wasm
           path: artifacts
 
+      - name: Check deploy secret
+        id: deploy_config
+        run: |
+          if [ -n "$SOROBAN_SECRET_KEY" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          SOROBAN_SECRET_KEY: ${{ secrets.SOROBAN_SECRET_KEY }}
+
       - name: Configure Soroban identity
+        if: steps.deploy_config.outputs.enabled == 'true'
         run: |
           echo "${{ secrets.SOROBAN_SECRET_KEY }}" | soroban keys add deployer --secret-key -
 
       - name: Deploy penalty_handler
+        if: steps.deploy_config.outputs.enabled == 'true'
         working-directory: artifacts
         run: |
           ID=$(soroban contract deploy \
@@ -145,6 +157,7 @@ jobs:
           echo "$ID" > penalty_address.txt
 
       - name: Deploy savings_circle
+        if: steps.deploy_config.outputs.enabled == 'true'
         working-directory: artifacts
         run: |
           ID=$(soroban contract deploy \
@@ -156,6 +169,7 @@ jobs:
           echo "$ID" > savings_address.txt
 
       - name: Upload deployment addresses
+        if: steps.deploy_config.outputs.enabled == 'true'
         uses: actions/upload-artifact@v6
         with:
           name: deployment-addresses
