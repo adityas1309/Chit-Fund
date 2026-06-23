@@ -15,7 +15,7 @@
 | Live demo (Vercel) | https://susu-chit-fund.vercel.app |
 | Source repo | https://github.com/adityas1309/4 |
 | Network | Stellar Testnet (Test SDF Network; September 2015) |
-| Demo video | [demo.mp4](./demo.mp4?raw=1) |
+| Demo video | [YouTube demo](https://youtu.be/N4BUKsrvg0g?si=nPMyfQiUZochTlnV) |
 | Stellar Expert (savings) | [CBUZIODOJ...](https://stellar.expert/explorer/testnet/contract/CBUZIODOJN7GV673ZGPNMOBZ6354GHKCNKXEWNINHEYR5NP6622OMM7E) |
 | Stellar Expert (penalty) | [CA6QMZ2CA...](https://stellar.expert/explorer/testnet/contract/CA6QMZ2CA3WETF2IKWYBIKRRG4VTQIQVOZGMQ5HMLGRZUE4THANL33C4) |
 | First create_circle tx | [77435c33...e8084](https://stellar.expert/explorer/testnet/tx/77435c33b501b6fd81a1e2f88149432d12e1edb812e077c098ebab43605e8084) |
@@ -57,7 +57,7 @@
 - [x] Error handling and loading states - 10 `SusuError` codes; `Spinner`, `EmptyState`; debounced balance refresh
 - [x] Tests for contracts and frontend - 14 contract + 28 frontend; ![Test output](docs/screenshots/tests.svg)
 - [x] Production-ready architecture - see [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) and [docs/SECURITY.md](./docs/SECURITY.md)
-- [x] Documentation and demo presentation - [docs/DEMO.md](./docs/DEMO.md) walkthrough script; [demo.mp4](./demo.mp4?raw=1) recording
+- [x] Documentation and demo presentation - [docs/DEMO.md](./docs/DEMO.md) walkthrough script; [YouTube demo](https://youtu.be/N4BUKsrvg0g?si=nPMyfQiUZochTlnV) recording
 - [x] Minimum 10+ meaningful commits - 23 commits on `main`
 - [x] CI/CD pipeline running - ![CI pipeline](docs/screenshots/ci-pipeline.svg)
 - [x] Test output with 3+ passing tests - ![Test output](docs/screenshots/tests.svg)
@@ -231,9 +231,9 @@ The script writes `.penalty_address` and `.savings_address` files. Copy them int
 
 ## Demo video
 
-GitHub may not inline-render the 60 MB MP4 reliably, so the direct link is the simplest way to view it:
+Watch the full demo here:
 
-[Open demo.mp4](./demo.mp4?raw=1)
+[YouTube demo](https://youtu.be/N4BUKsrvg0g?si=nPMyfQiUZochTlnV)
 
 The matching [docs/DEMO.md](./docs/DEMO.md) document has the on-screen prompts and expected state for each step.
 
